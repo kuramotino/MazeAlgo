@@ -1,0 +1,137 @@
+﻿  BaseButton.cpp
+  ButtonMgr.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,12): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,12): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,22): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(28,32): error C2061: 構文エラー: 識別子 'InputData'
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(29,25): error C2061: 構文エラー: 識別子 'MiceStatus'
+C:\Users\小峰龍之介\source\repos\MazeAlgo\ButtonMgr.cpp(19,93): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\ButtonMgr.cpp(37,97): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+  Command.cpp
+  InputData.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,12): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,12): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,22): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(28,32): error C2061: 構文エラー: 識別子 'InputData'
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(29,25): error C2061: 構文エラー: 識別子 'MiceStatus'
+  IssueCommand.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceStatus.h(16,36): error C2061: 構文エラー: 識別子 'POS'
+  main.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,12): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,12): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,22): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(28,32): error C2061: 構文エラー: 識別子 'InputData'
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(29,25): error C2061: 構文エラー: 識別子 'MiceStatus'
+  MakePass.cpp
+  MakePotential.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(24,16): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(24,16): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(24,30): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(25,6): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(25,6): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(25,14): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(28,36): error C2061: 構文エラー: 識別子 'POS'
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(29,25): error C2061: 構文エラー: 識別子 'MiceStatus'
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceStatus.h(16,36): error C2061: 構文エラー: 識別子 'POS'
+  Map.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MakePotential.h(25,6): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MakePotential.h(25,6): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MakePotential.h(25,11): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MakePotential.h(34,18): error C2061: 構文エラー: 識別子 'Map'
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(25,6): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(25,6): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(25,14): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(29,25): error C2061: 構文エラー: 識別子 'MiceStatus'
+  MiceMgr.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,12): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,12): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(19,22): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(28,32): error C2061: 構文エラー: 識別子 'InputData'
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(29,25): error C2061: 構文エラー: 識別子 'MiceStatus'
+  MiceObj.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(10,57): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(10,16): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(20,57): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(20,16): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(41,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(42,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(43,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(44,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(55,53): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(56,56): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(60,24): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(61,24): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+  MiceStatus.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\InputData.h(3,25): error C2871: 'Algorizm': この名前を指定された名前空間は存在しません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(20,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Map.h(28,51): error C2061: 構文エラー: 識別子 'MiceStatus'
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C2143: 構文エラー: ';' が '*' の前にありません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,13): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(23,24): error C2238: ';' の前に無効なトークンがあります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.h(29,25): error C2061: 構文エラー: 識別子 'MiceStatus'
+  Mouse.cpp
+  OnClickEventer.cpp
+  Planning.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceStatus.h(16,36): error C2061: 構文エラー: 識別子 'POS'
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.cpp(145,50): error C2660: 'Algorizm::MiceStatus::GoalCheck': 関数に 2 個の引数を指定できません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceStatus.h(16,8): message : 'Algorizm::MiceStatus::GoalCheck' の宣言を確認してください
+  Poll.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Poll.cpp(8,19): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Poll.cpp(8,16): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Poll.cpp(19,19): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Poll.cpp(19,16): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  SimTask.cpp
+  Singleton.cpp
+  WallButton.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(9,19): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(9,16): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(18,204): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(18,138): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(18,115): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(18,53): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(22,209): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(22,142): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(22,120): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(22,53): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(38,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallButton.cpp(38,17): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  WallResetButton.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallResetButton.cpp(14,207): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallResetButton.cpp(14,141): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallResetButton.cpp(14,118): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallResetButton.cpp(14,52): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallResetButton.cpp(28,22): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\WallResetButton.cpp(28,19): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  コードを生成中...
