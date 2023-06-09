@@ -26,5 +26,6 @@ namespace Algorizm
 		int isKnowWall(int x,int y,Dir wall_dir);//位置x,yのwall_dir方向の壁の有無を返す関数
 		void isLFRKnowWall(int* l, int* f, int* r, int x, int y, enum Dir dir);//位置x,y,向きdirのときの左と前と右の壁の有無を調べる関数
 		void SetInputStatus(InputData* input, MiceStatus* status);//InputとMiceStatusのオブジェクトをセットする
+		void RetPos(int* x, int* y);
 	};
 }

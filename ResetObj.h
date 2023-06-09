@@ -4,6 +4,7 @@
 #include "IssueCommand.h"
 #include "MiceObj.h"
 #include "ButtonMgr.h"
+#include "MakePotential.h"
 
 class ResetObj
 {
@@ -12,8 +13,9 @@ class ResetObj
 	IssueCommand* issue;
 	MiceObj* miceobj;
 	ButtonMgr* bmgr;
+	MakePotential* potential;
 
 public: 
-	void SetObj(Map* bumap, MiceStatus* bustatus, IssueCommand* buissue, MiceObj* bumiceobj, ButtonMgr* bubmgr);
+	void SetObj(Map* bumap, MiceStatus* bustatus, IssueCommand* buissue, MiceObj* bumiceobj, ButtonMgr* bubmgr, MakePotential* bupotential);
 	void PollingStop();
 };

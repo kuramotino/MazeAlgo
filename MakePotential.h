@@ -22,6 +22,7 @@ namespace Algorizm
 	class MakePotential
 	{
 		int DistMap[16][16] = {255};
+		int isKnowMap[16] = {0};//ある区画が既知がどうか，(0のとき未知，1のとき既知)
 		Map* map;
 
 	public:
@@ -30,7 +31,10 @@ namespace Algorizm
 		POS popQueue_walk(QUEUE_T* queue);//queueのpop
 		void Init_Dist(void);//歩数マップの初期化を行う関数
 		void DecideDist(int goal_size,POS* goal_pos);//歩数マップの更新を行う関数
+		void search_dijkstra(int goal_size, POS* goal_pos);//探索ダイクストラ法の歩数マップ更新を行う関数
 		int RetDist(int x, int y);//歩数マップの値を返す関数
 		void SetMap(Map* bu_map);//マップのセットを行う関数
+		void updata_knowmap(int x, int y);
+		void init_knowmap();
 	};
 }

@@ -1,7 +1,4 @@
-﻿  InitAlgo.cpp
-  IssueCommand.cpp
-  Planning.cpp
+﻿  HeapQueue.cpp
   ResetObj.cpp
-  main.cpp
   コードを生成中...
   MazeAlgo.vcxproj -> C:\Users\小峰龍之介\source\repos\MazeAlgo\Debug\MazeAlgo.exe

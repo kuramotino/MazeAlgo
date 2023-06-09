@@ -28,7 +28,7 @@ void InitAlgo()
 	debugview.SetPotential(&potential_obj);
 	debugview.SetStatus(&status_obj);
 	debugview.Initialize();
-	resetobj.SetObj(&map_obj, &status_obj, &issue_obj, &(mgr.miceObj), &(mgr.buttonMgr));
+	resetobj.SetObj(&map_obj, &status_obj, &issue_obj, &(mgr.miceObj), &(mgr.buttonMgr), &potential_obj);
 }
 
 void UpDataAlgo()

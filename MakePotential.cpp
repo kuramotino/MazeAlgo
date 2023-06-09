@@ -63,6 +63,10 @@ namespace Algorizm
 	void Algorizm::MakePotential::DecideDist(int goal_size, POS* goal_pos)//任意のゴール座標に対して歩数マップ更新を行う関数
 	{
 		map->MapDecide();//壁情報の更新
+		int now_x;
+		int now_y;
+		map->RetPos(&now_x, &now_y);
+		updata_knowmap(now_x, now_y);//既知区間の更新
 		Init_Dist();//歩数マップの初期化
 
 		QUEUE_T queue;
@@ -141,5 +145,59 @@ namespace Algorizm
 	void Algorizm::MakePotential::SetMap(Map* bu_map)//マップのセットを行う関数
 	{
 		map = bu_map;
+	}
+
+	void Algorizm::MakePotential::updata_knowmap(int x, int y)//既知区間の更新，壁情報取得後に呼ばれる
+	{
+		isKnowMap[x] = isKnowMap[x] | (1 << y);
+		if (x != 0)
+		{
+			int sum_west = 0;
+			for (int i = 0; i < 4; i++)
+			{
+				sum_west += map->isKnowWall(x - 1, y, (Dir)i);
+			}
+			isKnowMap[x - 1] = (sum_west >= 3) ? isKnowMap[x - 1] | (1 << y) : isKnowMap[x - 1];
+		}
+		if (x != 15)
+		{
+			int sum_east = 0;
+			for (int i = 0; i < 4; i++)
+			{
+				sum_east+=map->isKnowWall(x + 1, y, (Dir)i);
+			}
+			isKnowMap[x + 1] = (sum_east >= 3) ? isKnowMap[x + 1] | (1 << y) : isKnowMap[x + 1];
+		}
+		if (y != 0)
+		{
+			int sum_south = 0;
+			for (int i = 0; i < 4; i++)
+			{
+				sum_south+=map->isKnowWall(x, y - 1, (Dir)i);
+			}
+			isKnowMap[x] = (sum_south >= 3) ? isKnowMap[x] | (1 << y - 1) : isKnowMap[x];
+		}
+		if (y != 15)
+		{
+			int sum_north = 0;
+			for (int i = 0; i < 4; i++)
+			{
+				sum_north+=map->isKnowWall(x, y + 1, (Dir)i);
+			}
+			isKnowMap[x] = (sum_north >= 3) ? isKnowMap[x] | (1 << y + 1) : isKnowMap[x];
+		}
+	}
+
+	void Algorizm::MakePotential::init_knowmap()
+	{
+		for (int i = 0; i < 16; i++)
+		{
+			isKnowMap[i] = 0;
+		}
+	}
+
+	void Algorizm::MakePotential::search_dijkstra(int goal_size, POS* goal_pos)
+	{
+
 	}
 }

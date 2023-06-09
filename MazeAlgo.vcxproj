@@ -155,6 +155,7 @@
     <ClCompile Include="ButtonMgr.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="DebugView.cpp" />
+    <ClCompile Include="HeapQueue.cpp" />
     <ClCompile Include="InitAlgo.cpp" />
     <ClCompile Include="InputData.cpp" />
     <ClCompile Include="IssueCommand.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="ButtonMgr.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="DebugView.h" />
+    <ClInclude Include="HeapQueue.h" />
     <ClInclude Include="InitAlgo.h" />
     <ClInclude Include="InputData.h" />
     <ClInclude Include="IssueCommand.h" />

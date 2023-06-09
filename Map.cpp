@@ -247,4 +247,14 @@ namespace Algorizm
 		my_input = input;
 		my_status = status;
 	}
+
+	void Algorizm::Map::RetPos(int* x, int* y)
+	{
+		int bu_x;
+		int bu_y;
+		Dir bu_dir;
+		my_status->RetPos(&bu_x, &bu_y, &bu_dir);
+		*x = bu_x;
+		*y = bu_y;
+	}
 }
