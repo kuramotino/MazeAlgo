@@ -1,4 +1,12 @@
-﻿  HeapQueue.cpp
+﻿  DebugView.cpp
+  InitAlgo.cpp
+  IssueCommand.cpp
+  MakePotential.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MakePotential.cpp(179,64): warning C4554: '<<': 演算子の優先順位に問題があります。かっこを使用して優先順位を明確にしてください
+C:\Users\小峰龍之介\source\repos\MazeAlgo\MakePotential.cpp(188,64): warning C4554: '<<': 演算子の優先順位に問題があります。かっこを使用して優先順位を明確にしてください
+  MiceStatus.cpp
+  Planning.cpp
   ResetObj.cpp
+  main.cpp
   コードを生成中...
   MazeAlgo.vcxproj -> C:\Users\小峰龍之介\source\repos\MazeAlgo\Debug\MazeAlgo.exe

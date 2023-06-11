@@ -1,6 +1,5 @@
 #pragma once
-#include "MakePotential.h"
-#define MAX_HEAP_NUM 50
+#define MAX_HEAP_NUM 255
 
 namespace Algorizm
 {
@@ -8,7 +7,9 @@ namespace Algorizm
 	{
 		int cost;
 		bool isConfirm;
-		POS pos;
+		int pos_x;
+		int pos_y;
+		Search_Node* pre_node;
 	}NODE;
 
 	class HeapQueue
@@ -17,9 +18,11 @@ namespace Algorizm
 		int now_node_num = 0;//現在キューに入っているノード数
 
 	public:
+		void init_heap();//ヒープを初期化する関数
 		void up_heap(int root, int tail);//根だけが条件を満たさないヒープを再構築する関数
 		void construction_heap();//ヒープを再構築する関数
 		void push_heap(NODE node);//ヒープにプッシュする関数
 		NODE pop_heap();//ヒープからポップする関数
+		int ret_node_num();//現在キューに入っているノード数を返す関数
 	};
 }

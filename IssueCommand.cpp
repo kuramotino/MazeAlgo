@@ -19,7 +19,8 @@ namespace Algorizm
 		}
 		if (my_micemgr->RetKasokuEnd()==true && !isStop && isStart && !my_micemgr->RetStartPause())
 		{
-			nextVec = (!my_plan->RetReturn()) ? my_plan->Adati(4, goal_pos) : my_plan->Adati(1, start_pos);
+			//nextVec = (!my_plan->RetReturn()) ? my_plan->Adati(4, goal_pos) : my_plan->Adati(1, start_pos);
+			nextVec = (!my_plan->RetReturn()) ? my_plan->Adati(4, goal_pos) : my_plan->s_dijkstra(1, start_pos);
 			switch (nextVec)
 			{
 			case Left:

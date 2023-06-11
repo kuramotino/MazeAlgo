@@ -2,6 +2,11 @@
 
 namespace Algorizm
 {
+	void Algorizm::HeapQueue::init_heap()
+	{
+		now_node_num = 0;
+	}
+
 	void Algorizm::HeapQueue::up_heap(int root, int tail)//根だけが条件を満たさないヒープを再構築する関数
 	{
 		int next_swap_point = 2 * root;
@@ -46,7 +51,7 @@ namespace Algorizm
 
 	NODE Algorizm::HeapQueue::pop_heap()//ヒープからポップする関数
 	{
-		NODE ret = { 0,false,{0,0} };
+		NODE ret = { 0,false,0,0};
 		if (now_node_num == 0)
 		{
 			return ret;
@@ -56,5 +61,10 @@ namespace Algorizm
 		now_node_num--;
 		up_heap(1, now_node_num);
 		return ret;
+	}
+
+	int Algorizm::HeapQueue::ret_node_num()
+	{
+		return now_node_num;
 	}
 }

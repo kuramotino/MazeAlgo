@@ -1,4 +1,5 @@
 #include "MakePotential.h"
+#include "HeapQueue.h"
 
 namespace Algorizm
 {
@@ -196,8 +197,134 @@ namespace Algorizm
 		}
 	}
 
-	void Algorizm::MakePotential::search_dijkstra(int goal_size, POS* goal_pos)
+	void Algorizm::MakePotential::search_dijkstra(int goal_size,POS* goal_pos)
 	{
+		map->MapDecide();//壁情報の更新
+		int now_x;
+		int now_y;
+		map->RetPos(&now_x, &now_y);
+		updata_knowmap(now_x, now_y);//既知区間の更新
+		//Init_Dist();//歩数マップの初期化
+		init_search_node();//ノードの初期化
 
+		POS bupos = { 0,0 };//新たに確定したノードの座標
+		NODE new_confirm_node;//新たに確定したノード
+
+		heap.init_heap();//1キューを初期化
+
+		for (int i = 0; i < goal_size; i++)
+		{
+			DistMap[(goal_pos + i)->x][(goal_pos + i)->y] = 0;//goal座標を0にする
+			bupos.x = (goal_pos + i)->x;
+			bupos.y = (goal_pos + i)->y;
+			search_node[bupos.x][bupos.y].cost = 0;//スタートノードのコストを0にする
+			search_node[bupos.x][bupos.y].isConfirm = true;//スタートノードを確定させる
+			new_confirm_node = search_node[bupos.x][bupos.y];//スタートノードを新たに確定したノードとする
+		}
+		bool isFirst = true;
+		int x = bupos.x;
+		int y = bupos.y;
+
+		while (heap.ret_node_num() != 0 || isFirst)
+		{
+			if (!isFirst)
+			{
+				if (heap.ret_node_num() != 0)
+				{
+					new_confirm_node = heap.pop_heap();//優先度付きキューから最小のコストを持つノードを取り出す
+					bupos.x = new_confirm_node.pos_x;//確定したノードの座標を格納する
+					bupos.y = new_confirm_node.pos_y;//確定したノードの座標を格納する
+					x = bupos.x;
+					y = bupos.y;
+					new_confirm_node.isConfirm = true;//ノードを確定させる
+					search_node[bupos.x][bupos.y] = new_confirm_node;
+					DistMap[x][y] = new_confirm_node.cost;
+				}
+			}
+			else
+			{
+				isFirst = false;
+			}
+
+			int edge_cost = ((isKnowMap[x] & (1 << y)) == (1 << y)) ? search_edge_kiti : search_edge_miti;
+			//Popされた座標の周辺状況の確認
+			if (x != 15 && map->isKnowWall(x, y, East) == 0)//1右端でなく、右壁なしのとき
+			{
+				if (search_node[x + 1][y].cost > search_node[x][y].cost + edge_cost && !search_node[x + 1][y].isConfirm)//確定したノードにつながっているノードのコストの更新
+				{
+					search_node[x + 1][y].cost = search_node[x][y].cost + edge_cost;
+					search_node[x + 1][y].pre_node = &search_node[x][y];
+					DistMap[x + 1][y] = search_node[x][y].cost + edge_cost;
+				}
+				if (!search_node[x + 1][y].isConfirm)
+				{
+					heap.push_heap(search_node[x + 1][y]);//確定したノードにつながっているノードをキューにプッシュする
+					DistMap[x + 1][y] = search_node[x + 1][y].cost;
+				}
+			}
+			if (x != 0 && map->isKnowWall(x, y, West) == 0)//2左端でなく、左壁なしのとき
+			{
+				if (search_node[x - 1][y].cost > search_node[x][y].cost + edge_cost && !search_node[x - 1][y].isConfirm)//確定したノードにつながっているノードのコストの更新
+				{
+					search_node[x - 1][y].cost = search_node[x][y].cost + edge_cost;
+					search_node[x - 1][y].pre_node = &search_node[x][y];
+					DistMap[x - 1][y] = search_node[x][y].cost + edge_cost;
+				}
+				if (!search_node[x - 1][y].isConfirm)
+				{
+					heap.push_heap(search_node[x - 1][y]);//確定したノードにつながっているノードをキューにプッシュする
+					DistMap[x - 1][y] = search_node[x - 1][y].cost;
+				}
+			}
+			if (y != 15 && map->isKnowWall(x, y, North) == 0)//3上端でなく、上壁なしのとき
+			{
+				if (search_node[x][y + 1].cost > search_node[x][y].cost + edge_cost && !search_node[x][y + 1].isConfirm)//確定したノードにつながっているノードのコストの更新
+				{
+					search_node[x][y + 1].cost = search_node[x][y].cost + edge_cost;
+					search_node[x][y + 1].pre_node = &search_node[x][y];
+					DistMap[x][y + 1] = search_node[x][y].cost + edge_cost;
+				}
+				if (!search_node[x][y + 1].isConfirm)
+				{
+					heap.push_heap(search_node[x][y + 1]);//確定したノードにつながっているノードをキューにプッシュする
+					DistMap[x][y + 1] = search_node[x][y + 1].cost;
+				}
+			}
+			if (y != 0 && map->isKnowWall(x, y, South) == 0)//3下端でなく、下壁なしのとき
+			{
+				if (search_node[x][y - 1].cost > search_node[x][y].cost + edge_cost && !search_node[x][y - 1].isConfirm)//確定したノードにつながっているノードのコストの更新
+				{
+					search_node[x][y - 1].cost = search_node[x][y].cost + edge_cost;
+					search_node[x][y - 1].pre_node = &search_node[x][y];
+					DistMap[x][y - 1] = search_node[x][y].cost + edge_cost;
+				}
+				if (!search_node[x][y - 1].isConfirm)
+				{
+					heap.push_heap(search_node[x][y - 1]);//確定したノードにつながっているノードをキューにプッシュする
+					DistMap[x][y - 1] = search_node[x][y - 1].cost;
+				}
+			}
+		}
 	}
+
+	void Algorizm::MakePotential::init_search_node()
+	{
+		for (int i = 0; i < 16; i++)
+		{
+			for (int j = 0; j < 16; j++)
+			{
+				search_node[i][j].cost = 999;
+				search_node[i][j].isConfirm = false;
+				search_node[i][j].pos_x = i;
+				search_node[i][j].pos_y = j;
+				search_node[i][j].pre_node = &search_node[i][j];
+			}
+		}
+	}
+
+	NODE Algorizm::MakePotential::ret_search_node(int x, int y)//ある位置x,yにおけるノードを返す関数
+	{
+		return search_node[x][y];
+	}
+
 }

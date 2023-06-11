@@ -224,4 +224,49 @@ namespace Algorizm
 	{
 		return isTansakuEnd;
 	}
+
+	enum Vec Algorizm::Planning::s_dijkstra(int goal_size, POS* goal_pos)
+	{
+		NODE node;
+		NODE pre_node;
+		int pre_x, pre_y;
+		my_potential->search_dijkstra(goal_size, goal_pos);//現在のノードを更新する
+		my_status->RetPos(&x, &y, &MiceVec);
+		node = my_potential->ret_search_node(x, y);
+		pre_node = *(node.pre_node);
+		pre_x = pre_node.pos_x;
+		pre_y = pre_node.pos_y;
+
+
+		//1ある位置(x,y)につながっているノードの座標から次に進む向きを決定
+		if (MiceVec == North)
+		{
+			ret = (y + 1 == pre_y) ? Front : ((x + 1 == pre_x) ? Right : ((x - 1 == pre_x) ? Left : Back));
+		}
+		else if (MiceVec == East)
+		{
+			ret = (x + 1 == pre_x) ? Front : ((y - 1 == pre_y) ? Right : ((y + 1 == pre_y) ? Left : Back));
+		}
+		else if (MiceVec == South)
+		{
+			ret = (y - 1 == pre_y) ? Front : ((x - 1 == pre_x) ? Right : ((x + 1 == pre_x) ? Left : Back));
+		}
+		else if (MiceVec == West)
+		{
+			ret = (x - 1 == pre_x) ? Front : ((y + 1 == pre_y) ? Right : ((y - 1 == pre_y) ? Left : Back));
+		}
+
+		UpDataVecPos(ret);//次に進む向きから位置と向きを更新
+
+		for (int i = 0; i < goal_size; i++)//ゴール座標に到達していたら探索終了
+		{
+			isTansakuEnd = my_status->GoalCheck(goal_size, (goal_pos + i)->x, (goal_pos + i)->y);
+			if (isTansakuEnd)
+			{
+				break;
+			}
+		}
+		return ret;
+	}
+
 }
