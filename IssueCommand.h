@@ -13,6 +13,7 @@ namespace Algorizm
 		enum Vec nextVec;
 		bool isStart = false;
 		bool isStop = false;
+		bool isStopSenkai = false;
 
 	public:
 		void Init();//ó‘Ô‚ğ‰Šú‰»‚·‚éŠÖ”

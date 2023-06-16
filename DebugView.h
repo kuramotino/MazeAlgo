@@ -19,10 +19,21 @@ public:
 	Dir micevec;
 };
 
+class NodeView
+{
+public:
+	int x;
+	int y;
+	bool isNoWall;
+	int dist = 999;
+};
+
 class DebugView : public SimTask
 {
 	DistView distview[16][16];
 	PosDirView posview;
+	NodeView row_nodeview[15][16];
+	NodeView column_nodeview[15][16];
 	MakePotential* my_potential;
 	MiceStatus* my_status;
 	int dist_zero_x = 42;
@@ -32,6 +43,12 @@ class DebugView : public SimTask
 	int pos_zero_x = 600;
 	int pos_zero_y = 500;
 	int pos_interval = 30;
+	int zero_x = 26;
+	int zero_y = 38;
+	int dx = 34;
+	int dy = 34;
+public:
+	bool isDrawDist = true;
 
 public:
 	void Initialize();

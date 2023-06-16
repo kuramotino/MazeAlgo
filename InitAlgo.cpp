@@ -28,7 +28,7 @@ void InitAlgo()
 	debugview.SetPotential(&potential_obj);
 	debugview.SetStatus(&status_obj);
 	debugview.Initialize();
-	resetobj.SetObj(&map_obj, &status_obj, &issue_obj, &(mgr.miceObj), &(mgr.buttonMgr), &potential_obj);
+	resetobj.SetObj(&map_obj, &status_obj, &issue_obj, &(mgr.miceObj), &(mgr.buttonMgr), &potential_obj, &debugview);
 }
 
 void UpDataAlgo()
@@ -36,6 +36,7 @@ void UpDataAlgo()
 	mgr.Update();
 	mgr.Draw();
 	issue_obj.Tansaku();
+	issue_obj.Saitan();
 	debugview.Update();
 	debugview.Draw();
 	resetobj.PollingStop();

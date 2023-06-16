@@ -176,7 +176,7 @@ namespace Algorizm
 			{
 				sum_south+=map->isKnowWall(x, y - 1, (Dir)i);
 			}
-			isKnowMap[x] = (sum_south >= 3) ? isKnowMap[x] | (1 << y - 1) : isKnowMap[x];
+			isKnowMap[x] = (sum_south >= 3) ? isKnowMap[x] | (1 << (y - 1)) : isKnowMap[x];
 		}
 		if (y != 15)
 		{
@@ -185,7 +185,7 @@ namespace Algorizm
 			{
 				sum_north+=map->isKnowWall(x, y + 1, (Dir)i);
 			}
-			isKnowMap[x] = (sum_north >= 3) ? isKnowMap[x] | (1 << y + 1) : isKnowMap[x];
+			isKnowMap[x] = (sum_north >= 3) ? isKnowMap[x] | (1 << (y + 1)) : isKnowMap[x];
 		}
 	}
 
@@ -218,33 +218,32 @@ namespace Algorizm
 			bupos.x = (goal_pos + i)->x;
 			bupos.y = (goal_pos + i)->y;
 			search_node[bupos.x][bupos.y].cost = 0;//スタートノードのコストを0にする
-			search_node[bupos.x][bupos.y].isConfirm = true;//スタートノードを確定させる
-			new_confirm_node = search_node[bupos.x][bupos.y];//スタートノードを新たに確定したノードとする
+			heap.push_heap(search_node[bupos.x][bupos.y]);//スタートノードをキューにプッシュする
 		}
-		bool isFirst = true;
 		int x = bupos.x;
 		int y = bupos.y;
 
-		while (heap.ret_node_num() != 0 || isFirst)
+		while (heap.ret_node_num() != 0)
 		{
-			if (!isFirst)
+			if (heap.ret_node_num() != 0)
 			{
-				if (heap.ret_node_num() != 0)
+				new_confirm_node = heap.pop_heap();//優先度付きキューから最小のコストを持つノードを取り出す
+				bupos.x = new_confirm_node.pos_x;//確定したノードの座標を格納する
+				bupos.y = new_confirm_node.pos_y;//確定したノードの座標を格納する
+				x = bupos.x;
+				y = bupos.y;
+				if (!search_node[x][y].isConfirm)
 				{
-					new_confirm_node = heap.pop_heap();//優先度付きキューから最小のコストを持つノードを取り出す
-					bupos.x = new_confirm_node.pos_x;//確定したノードの座標を格納する
-					bupos.y = new_confirm_node.pos_y;//確定したノードの座標を格納する
-					x = bupos.x;
-					y = bupos.y;
 					new_confirm_node.isConfirm = true;//ノードを確定させる
 					search_node[bupos.x][bupos.y] = new_confirm_node;
 					DistMap[x][y] = new_confirm_node.cost;
 				}
+				else
+				{
+					continue;
+				}
 			}
-			else
-			{
-				isFirst = false;
-			}
+			
 
 			int edge_cost = ((isKnowMap[x] & (1 << y)) == (1 << y)) ? search_edge_kiti : search_edge_miti;
 			//Popされた座標の周辺状況の確認
@@ -327,4 +326,247 @@ namespace Algorizm
 		return search_node[x][y];
 	}
 
+	void Algorizm::MakePotential::init_saitan_node()
+	{
+		for (int i = 0; i < 15; i++)
+		{
+			for (int j = 0; j < 16; j++)
+			{
+				saitan_node_row[i][j].cost = 999;
+				saitan_node_row[i][j].isConfirm = false;
+				saitan_node_row[i][j].pos_x = i;
+				saitan_node_row[i][j].pos_y = j;
+				saitan_node_row[i][j].pre_node = &search_node[i][j];
+				saitan_node_row[i][j].isNoWall = !(map->isExistRowColumn(i, j, true));
+				saitan_node_row[i][j].isRow = true;
+				saitan_node_row[i][j].node_dir = NN;
+
+				saitan_node_column[i][j].cost = 999;
+				saitan_node_column[i][j].isConfirm = false;
+				saitan_node_column[i][j].pos_x = i;
+				saitan_node_column[i][j].pos_y = j;
+				saitan_node_column[i][j].pre_node = &search_node[i][j];
+				saitan_node_column[i][j].isNoWall = !(map->isExistRowColumn(i, j, false));
+				saitan_node_column[i][j].isRow = false;
+				saitan_node_column[i][j].node_dir = NN;
+			}
+		}
+	}
+
+	void Algorizm::MakePotential::saitan_dijkstra(int goal_size, POS* goal_pos)//最短用のダイクストラ法
+	{
+		//map->MapDecide();//壁情報の更新
+		//int now_x;
+		//int now_y;
+		//map->RetPos(&now_x, &now_y);
+		//updata_knowmap(now_x, now_y);//既知区間の更新
+		init_saitan_node();//ノードの初期化
+
+		POS bupos = { 0,0 };//新たに確定したノードの座標
+		NODE new_confirm_node;//新たに確定したノード
+
+		heap.init_heap();//1キューを初期化
+
+		for (int i = 0; i < goal_size; i++)
+		{
+			bupos.x = (goal_pos + i)->x;
+			bupos.y = (goal_pos + i)->y;
+			saitan_node_column[bupos.x][bupos.y].cost = 0;//スタートノードのコストを0にする
+			if (saitan_node_column[bupos.x][bupos.y].isNoWall)
+			{
+				heap.push_heap(saitan_node_column[bupos.x][bupos.y]);//スタートノードをキューにプッシュする
+			}
+
+			saitan_node_row[bupos.y][bupos.x].cost = 0;//スタートノードのコストを0にする
+			if (saitan_node_row[bupos.y][bupos.x].isNoWall)
+			{
+				heap.push_heap(saitan_node_row[bupos.y][bupos.x]);//スタートノードをキューにプッシュする
+			}
+		}
+		bool isRow = false;
+		int x = bupos.x;
+		int y = bupos.y;
+
+		while (heap.ret_node_num() != 0)
+		{
+			if (heap.ret_node_num() != 0)
+			{
+				new_confirm_node = heap.pop_heap();//優先度付きキューから最小のコストを持つノードを取り出す
+				bupos.x = new_confirm_node.pos_x;//確定したノードの座標を格納する
+				bupos.y = new_confirm_node.pos_y;//確定したノードの座標を格納する
+				x = bupos.x;
+				y = bupos.y;
+				isRow = new_confirm_node.isRow;
+				if (!((RetSaitanNode(x, y, isRow)->isConfirm)))
+				{
+					new_confirm_node.isConfirm = true;//ノードを確定させる
+					*RetSaitanNode(x, y, isRow) = new_confirm_node;
+				}
+				else
+				{
+					continue;
+				}
+			}
+			
+			int edge_cost;
+			saitan_node_dir pre_dir;
+			//Popされた座標の周辺状況の確認
+			if (RetSaitanNode(x, y, isRow)->isRow)//キューから取り出されたノードがRowのとき
+			{
+				if (RetSaitanNode(x + 1, y, true)->isNoWall)//北向きのとき
+				{
+					pre_dir = RetSaitanNode(x + 1, y, true)->node_dir;
+					RetSaitanNode(x + 1, y, true)->node_dir = SS;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(x + 1, y, true));
+					SaitanPushNode(RetSaitanNode(x + 1, y, true), &new_confirm_node, edge_cost, pre_dir);
+				}
+				if (RetSaitanNode(y, x + 1, false)->isNoWall)//北東のとき
+				{
+					pre_dir = RetSaitanNode(y, x + 1, false)->node_dir;
+					RetSaitanNode(y, x + 1, false)->node_dir = SW;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(y, x + 1, false));
+					SaitanPushNode(RetSaitanNode(y, x + 1, false), &new_confirm_node, edge_cost, pre_dir);
+				}
+				if (RetSaitanNode(y, x, false)->isNoWall)//南東のとき
+				{
+					pre_dir = RetSaitanNode(y, x, false)->node_dir;
+					RetSaitanNode(y, x, false)->node_dir = NW;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(y, x, false));
+					SaitanPushNode(RetSaitanNode(y, x, false), &new_confirm_node, edge_cost, pre_dir);
+				}
+				if (RetSaitanNode(x - 1, y, true)->isNoWall)//南のとき
+				{
+					pre_dir = RetSaitanNode(x - 1, y, true)->node_dir;
+					RetSaitanNode(x - 1, y, true)->node_dir = NN;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(x - 1, y, true));
+					SaitanPushNode(RetSaitanNode(x - 1, y, true), &new_confirm_node, edge_cost, pre_dir);
+				}
+				if (RetSaitanNode(y - 1, x, false)->isNoWall)//南西のとき
+				{
+					pre_dir = RetSaitanNode(y - 1, x, false)->node_dir;
+					RetSaitanNode(y - 1, x, false)->node_dir = NE;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(y - 1, x, false));
+					SaitanPushNode(RetSaitanNode(y - 1, x, false), &new_confirm_node, edge_cost, pre_dir);
+				}
+				if (RetSaitanNode(y - 1, x + 1, false)->isNoWall)//北西のとき
+				{
+					pre_dir = RetSaitanNode(y - 1, x + 1, false)->node_dir;
+					RetSaitanNode(y - 1, x + 1, false)->node_dir = SE;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(y - 1, x + 1, false));
+					SaitanPushNode(RetSaitanNode(y - 1, x + 1, false), &new_confirm_node, edge_cost, pre_dir);
+				}
+			}
+			else//キューから取り出されたノードがColumnのとき
+			{
+				if (RetSaitanNode(y, x + 1, true)->isNoWall)//北東のとき
+				{
+					pre_dir = RetSaitanNode(y, x + 1, true)->node_dir;
+					RetSaitanNode(y, x + 1, true)->node_dir = SW;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(y, x + 1, true));
+					SaitanPushNode(RetSaitanNode(y, x + 1, true), &new_confirm_node, edge_cost, pre_dir);
+				}
+				if (RetSaitanNode(x + 1, y, false)->isNoWall)//東のとき
+				{
+					pre_dir = RetSaitanNode(x + 1, y, false)->node_dir;
+					RetSaitanNode(x + 1, y, false)->node_dir = WW;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(x + 1, y, false));
+					SaitanPushNode(RetSaitanNode(x + 1, y, false), &new_confirm_node, edge_cost, pre_dir);
+				}
+				if (RetSaitanNode(y - 1, x + 1, true)->isNoWall)//南東のとき
+				{
+					pre_dir = RetSaitanNode(y - 1, x + 1, true)->node_dir;
+					RetSaitanNode(y - 1, x + 1, true)->node_dir = NW;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(y - 1, x + 1, true));
+					SaitanPushNode(RetSaitanNode(y - 1, x + 1, true), &new_confirm_node, edge_cost, pre_dir);
+				}
+				if (RetSaitanNode(y - 1, x, true)->isNoWall)//南西のとき
+				{
+					pre_dir = RetSaitanNode(y - 1, x, true)->node_dir;
+					RetSaitanNode(y - 1, x, true)->node_dir = NE;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(y - 1, x, true));
+					SaitanPushNode(RetSaitanNode(y - 1, x, true), &new_confirm_node, edge_cost, pre_dir);
+				}
+				if (RetSaitanNode(x - 1, y, false)->isNoWall)//西のとき
+				{
+					pre_dir = RetSaitanNode(x - 1, y, false)->node_dir;
+					RetSaitanNode(x - 1, y, false)->node_dir = EE;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(x - 1, y, false));
+					SaitanPushNode(RetSaitanNode(x - 1, y, false), &new_confirm_node, edge_cost, pre_dir);
+				}
+				if (RetSaitanNode(y, x, true)->isNoWall)//北西のとき
+				{
+					pre_dir = RetSaitanNode(y, x, true)->node_dir;
+					RetSaitanNode(y, x, true)->node_dir = SE;
+					edge_cost = CalEdgeCost(RetSaitanNode(x, y, isRow), RetSaitanNode(y, x, true));
+					SaitanPushNode(RetSaitanNode(y, x, true), &new_confirm_node, edge_cost, pre_dir);
+				}
+			}
+		}
+	}
+
+	NODE* Algorizm::MakePotential::RetSaitanNode(int x, int y, bool isRow)//あるx,y,rowかcolumnか指定したときのノードを返す関数
+	{
+		no_conect_node.isNoWall = false;
+		
+		if (isRow)
+		{
+			if (x < 0 || x > 14 || y < 0 || y > 15)
+			{
+				return &(no_conect_node);//ノードがその位置に存在しない場合
+			}
+			return &(saitan_node_row[x][y]);
+		}
+		else
+		{
+			if (x < 0 || x > 14 || y < 0 || y > 15)
+			{
+				return &(no_conect_node);//ノードがその位置に存在しない場合
+			}
+			return &(saitan_node_column[x][y]);
+		}
+	}
+
+	int Algorizm::MakePotential::CalEdgeCost(NODE* prenode, NODE* nownode)//あるノードに接続されたエッジのコストを計算する関数
+	{
+		int ret;
+		saitan_node_dir pre_dir = prenode->node_dir;
+		saitan_node_dir now_dir = nownode->node_dir;
+		if (now_dir == NN || now_dir == EE || now_dir == SS || now_dir == WW)
+		{
+			ret = (now_dir == pre_dir) ? continue_st_edge_cost : strate_edge_cost;
+		}
+		else
+		{
+			ret = (now_dir == pre_dir) ? continue_dag_edge_cost : diagonal_edge_cost;
+		}
+		return ret;
+	}
+
+	void Algorizm::MakePotential::SaitanPushNode(NODE* node, NODE* new_node, int edge_cost, saitan_node_dir predir)//あるノードをプッシュする関数
+	{
+		if (node->cost > new_node->cost + edge_cost && !node->isConfirm)//確定したノードにつながっているノードのコストの更新
+		{
+			node->cost = new_node->cost + edge_cost;
+			node->pre_node = new_node;
+			heap.push_heap(*node);//確定したノードにつながっているノードをキューにプッシュする
+		}
+		else
+		{
+			node->node_dir = predir;
+		}
+	}
+
+	void Algorizm::MakePotential::BlockKnowWall()//未知区間の壁をふさぐ関数
+	{
+		for (int i = 0; i < 16; i++)
+		{
+			for (int j = 0; j < 16; j++)
+			{
+				if ((isKnowMap[i] & (1<<j)) != (1<<j))
+				{
+					map->BlockWall(i, j);
+				}
+			}
+		}
+	}
 }

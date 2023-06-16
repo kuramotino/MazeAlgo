@@ -1,4 +1,5 @@
-#include "IssueCommand.h"
+#include "InitAlgo.h"
+#include "DebugView.h"
 
 namespace Algorizm
 {
@@ -6,6 +7,7 @@ namespace Algorizm
 	{
 		isStart = false;
 		isStop = false;
+		isStopSenkai = false;
 		my_plan->SetReturn(false);
 		my_plan->SetTansakuEnd(false);
 	}
@@ -41,11 +43,21 @@ namespace Algorizm
 			}
 			isStop = my_plan->RetTansakuEnd();
 		}
+		if (my_micemgr->RetKasokuEnd() == true && isStop && !isStopSenkai && !my_micemgr->RetStartPause())
+		{
+			my_micemgr->SetAct(Right_sen);
+			isStopSenkai = true;
+		}
 	}
 
 	void IssueCommand::Saitan()
 	{
-
+		if (my_micemgr->RetKasokuEnd() == true && isStopSenkai)
+		{
+			debugview.isDrawDist = false;
+			my_plan->BlockWall();
+			int nextpass = my_plan->saitan_dijkstra(4, goal_pos);
+		}
 	}
 
 	void IssueCommand::SetPlanMgr(Planning* plan,MiceMgr* bu_mgr)

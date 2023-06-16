@@ -1,6 +1,6 @@
 #include "ResetObj.h"
 
-void ResetObj::SetObj(Map* bumap, MiceStatus* bustatus, IssueCommand* buissue, MiceObj* bumiceobj, ButtonMgr* bubmgr, MakePotential* bupotential)
+void ResetObj::SetObj(Map* bumap, MiceStatus* bustatus, IssueCommand* buissue, MiceObj* bumiceobj, ButtonMgr* bubmgr, MakePotential* bupotential ,DebugView* buview)
 {
 	map = bumap;
 	status = bustatus;
@@ -8,6 +8,7 @@ void ResetObj::SetObj(Map* bumap, MiceStatus* bustatus, IssueCommand* buissue, M
 	miceobj = bumiceobj;
 	bmgr = bubmgr;
 	potential = bupotential;
+	view = buview;
 }
 
 void ResetObj::PollingStop()
@@ -19,5 +20,6 @@ void ResetObj::PollingStop()
 		issue->Init();
 		miceobj->Initialize();
 		potential->init_knowmap();
+		view->Initialize();
 	}
 }

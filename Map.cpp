@@ -257,4 +257,38 @@ namespace Algorizm
 		*x = bu_x;
 		*y = bu_y;
 	}
+
+	bool Algorizm::Map::isExistRowColumn(int x, int y, bool isRow)
+	{
+		bool Ret;
+		if (isRow)
+		{
+			Ret = ((Row[x] & (1 << y)) == (1 << y)) ? true : false;
+		}
+		else
+		{
+			Ret = ((Column[x] & (1 << y)) == (1 << y)) ? true : false;
+		}
+		return Ret;
+	}
+
+	void Algorizm::Map::BlockWall(int x, int y)//‚ ‚éˆÊ’ux,y‚Ì•Ç‚ð‚·‚×‚Ä‚Ó‚³‚®ŠÖ”
+	{
+		if (y != 0)
+		{
+			Row[y - 1] = (Row[y - 1] | (1 << x));
+		}
+		if (y != 15)
+		{
+			Row[y] = (Row[y] | (1 << x));
+		}
+		if (x != 0)
+		{
+			Column[x - 1] = (Column[x - 1] | (1 << y));
+		}
+		if (x != 15)
+		{
+			Column[x] = (Column[x] | (1 << y));
+		}
+	}
 }

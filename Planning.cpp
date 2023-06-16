@@ -269,4 +269,70 @@ namespace Algorizm
 		return ret;
 	}
 
+	int Algorizm::Planning::saitan_dijkstra(int goal_size, POS* goal_pos)
+	{
+		NODE node;
+		NODE pre_node;
+		int pre_x, pre_y;
+		my_potential->saitan_dijkstra(goal_size, goal_pos);//現在のノードを更新する
+		my_status->RetPos(&x, &y, &MiceVec);
+		
+		if (MiceVec == North)
+		{
+			node = *(my_potential->RetSaitanNode(x - 1, y, true));
+		}
+		else if (MiceVec == East)
+		{
+			node = *(my_potential->RetSaitanNode(x - 1, y, false));
+		}
+		else if (MiceVec == South)
+		{
+			node = *(my_potential->RetSaitanNode(x, y, true));
+		}
+		else if (MiceVec == West)
+		{
+			node = *(my_potential->RetSaitanNode(x, y, false));
+		}
+
+
+		//pre_node = *(node.pre_node);
+		//pre_x = pre_node.pos_x;
+		//pre_y = pre_node.pos_y;
+
+
+		//1ある位置(x,y)につながっているノードの座標から次に進む向きを決定
+		if (MiceVec == North)
+		{
+			ret = (node.node_dir == NW) ? Left : ((node.node_dir == NE) ? Right : Front);
+		}
+		else if (MiceVec == East)
+		{
+			ret = (node.node_dir == NE) ? Left : ((node.node_dir == SE) ? Right : Front);
+		}
+		else if (MiceVec == South)
+		{
+			ret = (node.node_dir == SE) ? Left : ((node.node_dir == SW) ? Right : Front);
+		}
+		else if (MiceVec == West)
+		{
+			ret = (node.node_dir == SW) ? Left : ((node.node_dir == NW) ? Right : Front);
+		}
+
+		UpDataVecPos(ret);//次に進む向きから位置と向きを更新
+
+		for (int i = 0; i < goal_size; i++)//ゴール座標に到達していたら探索終了
+		{
+			isSimEnd = my_status->GoalCheck(goal_size, (goal_pos + i)->x, (goal_pos + i)->y);
+			if (isSimEnd)
+			{
+				break;
+			}
+		}
+		return ret;
+	}
+
+	void Algorizm::Planning::BlockWall()
+	{
+		my_potential->BlockKnowWall();
+	}
 }

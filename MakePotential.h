@@ -5,6 +5,7 @@
 
 namespace Algorizm
 {
+
 	//pos_queue構造体
 	typedef struct POS_QUEUE
 	{
@@ -28,6 +29,13 @@ namespace Algorizm
 		HeapQueue heap;//探索用のヒープ
 		int search_edge_miti = 1;//未知区間のエッジの重み
 		int search_edge_kiti = 5;//既知区間のエッジの重み
+		NODE saitan_node_column[15][16];//最短用のノード
+		NODE saitan_node_row[15][16];//最短用のノード
+		NODE no_conect_node;//繋がらないノード
+		int strate_edge_cost = 7;
+		int diagonal_edge_cost = 5;
+		int continue_st_edge_cost = 3;
+		int continue_dag_edge_cost = 3;
 		Map* map;
 
 	public:
@@ -43,5 +51,11 @@ namespace Algorizm
 		void init_knowmap();
 		void init_search_node();
 		NODE ret_search_node(int x, int y);//ある位置x,yにおけるノードを返す関数
+		void init_saitan_node();
+		void saitan_dijkstra(int goal_size, POS* goal_pos);//最短ダイクストラ法の歩数マップ更新を行う関数
+		NODE* RetSaitanNode(int x, int y, bool isRow);//あるx,y,rowかcolumnか指定したときのノードを返す関数
+		int CalEdgeCost(NODE* prenode,NODE* nownode);//あるノードに接続されたエッジのコストを計算する関数
+		void SaitanPushNode(NODE* node, NODE* new_node, int edge_cost, saitan_node_dir dir);//あるノードをプッシュする関数
+		void BlockKnowWall();//未知区間の壁をふさぐ関数
 	};
 }

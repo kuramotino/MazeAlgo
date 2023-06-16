@@ -4,6 +4,7 @@
 
 void DebugView::Initialize()
 {
+	isDrawDist = true;
 	for (int i = 0; i < 16; i++)
 	{
 		for (int j = 0; j < 16; j++)
@@ -11,6 +12,22 @@ void DebugView::Initialize()
 			distview[i][j].x = dist_zero_x + dist_interval * i;
 			distview[i][j].y = Mouse::getInstance()->WindowHeight - (dist_zero_y + dist_interval * j);
 			distview[i][j].dist = my_potential->RetDist(i, j);
+		}
+	}
+
+	for (int i = 0; i < 15; i++)
+	{
+		for (int j = 0; j < 16; j++)
+		{
+			row_nodeview[i][j].dist = (my_potential->RetSaitanNode(i, j, true))->cost;
+			row_nodeview[i][j].x = zero_x + dx / 2 + dx * j;
+			row_nodeview[i][j].y = Mouse::getInstance()->WindowHeight - (zero_y + dy + dy * i);
+			row_nodeview[i][j].isNoWall = (my_potential->RetSaitanNode(i, j, true))->isNoWall;
+
+			column_nodeview[i][j].dist = (my_potential->RetSaitanNode(i, j, false))->cost;
+			column_nodeview[i][j].x = zero_x + dx + dx * i;
+			column_nodeview[i][j].y = Mouse::getInstance()->WindowHeight - (zero_y + dy / 2 + dy * j);
+			column_nodeview[i][j].isNoWall = (my_potential->RetSaitanNode(i, j, false))->isNoWall;
 		}
 	}
 }
@@ -24,6 +41,18 @@ void DebugView::Update()
 			distview[i][j].dist = my_potential->RetDist(i, j);
 		}
 	}
+
+	for (int i = 0; i < 15; i++)
+	{
+		for (int j = 0; j < 16; j++)
+		{
+			row_nodeview[i][j].dist = (my_potential->RetSaitanNode(i, j, true))->cost;
+			row_nodeview[i][j].isNoWall = (my_potential->RetSaitanNode(i, j, true))->isNoWall;
+			column_nodeview[i][j].dist = (my_potential->RetSaitanNode(i, j, false))->cost;
+			column_nodeview[i][j].isNoWall = (my_potential->RetSaitanNode(i, j, false))->isNoWall;
+		}
+	}
+
 	int x, y;
 	Dir dir;
 	my_status->RetPos(&x, &y, &dir);
@@ -35,25 +64,84 @@ void DebugView::Update()
 void DebugView::Draw()
 {
 	int White = GetColor(255, 255, 255);
-	for (int i = 0; i < 16; i++)
+	if (isDrawDist)
 	{
-		for (int j = 0; j < 16; j++)
+		for (int i = 0; i < 16; i++)
 		{
-			if (distview[i][j].dist / 1000 != 0)
+			for (int j = 0; j < 16; j++)
 			{
-				DrawFormatString(distview[i][j].x - charsize - charsize / 2, distview[i][j].y, White, "%d", distview[i][j].dist);
+				if (distview[i][j].dist / 1000 != 0)
+				{
+					DrawFormatString(distview[i][j].x - charsize - charsize / 2, distview[i][j].y, White, "%d", distview[i][j].dist);
+				}
+				else if (distview[i][j].dist / 100 != 0)
+				{
+					DrawFormatString(distview[i][j].x - charsize, distview[i][j].y, White, "%d", distview[i][j].dist);
+				}
+				else if (distview[i][j].dist / 10 != 0)
+				{
+					DrawFormatString(distview[i][j].x - charsize / 2, distview[i][j].y, White, "%d", distview[i][j].dist);
+				}
+				else
+				{
+					DrawFormatString(distview[i][j].x, distview[i][j].y, White, "%d", distview[i][j].dist);
+				}
 			}
-			else if (distview[i][j].dist / 100 != 0)
+		}
+	}
+	else
+	{
+		for (int i = 0; i < 15; i++)
+		{
+			for (int j = 0; j < 16; j++)
 			{
-				DrawFormatString(distview[i][j].x-charsize, distview[i][j].y, White, "%d", distview[i][j].dist);
-			}
-			else if (distview[i][j].dist / 10 != 0)
-			{
-				DrawFormatString(distview[i][j].x-charsize/2, distview[i][j].y, White, "%d", distview[i][j].dist);
-			}
-			else
-			{
-				DrawFormatString(distview[i][j].x, distview[i][j].y, White, "%d", distview[i][j].dist);
+				if (row_nodeview[i][j].isNoWall)
+				{
+					if (row_nodeview[i][j].dist / 10000 != 0)
+					{
+						DrawFormatString(row_nodeview[i][j].x - 2 * charsize, row_nodeview[i][j].y, White, "%d", row_nodeview[i][j].dist);
+					}
+					else if (row_nodeview[i][j].dist / 1000 != 0)
+					{
+						DrawFormatString(row_nodeview[i][j].x - charsize - charsize / 2, row_nodeview[i][j].y, White, "%d", row_nodeview[i][j].dist);
+					}
+					else if (row_nodeview[i][j].dist / 100 != 0)
+					{
+						DrawFormatString(row_nodeview[i][j].x - charsize, row_nodeview[i][j].y, White, "%d", row_nodeview[i][j].dist);
+					}
+					else if (row_nodeview[i][j].dist / 10 != 0)
+					{
+						DrawFormatString(row_nodeview[i][j].x - charsize / 2, row_nodeview[i][j].y, White, "%d", row_nodeview[i][j].dist);
+					}
+					else
+					{
+						DrawFormatString(row_nodeview[i][j].x, row_nodeview[i][j].y, White, "%d", row_nodeview[i][j].dist);
+					}
+				}
+
+				if (column_nodeview[i][j].isNoWall)
+				{
+					if (column_nodeview[i][j].dist / 10000 != 0)
+					{
+						DrawFormatString(column_nodeview[i][j].x - 2 * charsize, column_nodeview[i][j].y, White, "%d", column_nodeview[i][j].dist);
+					}
+					else if (column_nodeview[i][j].dist / 1000 != 0)
+					{
+						DrawFormatString(column_nodeview[i][j].x - charsize - charsize / 2, column_nodeview[i][j].y, White, "%d", column_nodeview[i][j].dist);
+					}
+					else if (column_nodeview[i][j].dist / 100 != 0)
+					{
+						DrawFormatString(column_nodeview[i][j].x - charsize, column_nodeview[i][j].y, White, "%d", column_nodeview[i][j].dist);
+					}
+					else if (column_nodeview[i][j].dist / 10 != 0)
+					{
+						DrawFormatString(column_nodeview[i][j].x - charsize / 2, column_nodeview[i][j].y, White, "%d", column_nodeview[i][j].dist);
+					}
+					else
+					{
+						DrawFormatString(column_nodeview[i][j].x, column_nodeview[i][j].y, White, "%d", column_nodeview[i][j].dist);
+					}
+				}
 			}
 		}
 	}

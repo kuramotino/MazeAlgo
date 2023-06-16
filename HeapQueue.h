@@ -3,6 +3,8 @@
 
 namespace Algorizm
 {
+	enum saitan_node_dir { NN, NE, EE, SE, SS, SW, WW, NW };
+
 	typedef struct Search_Node
 	{
 		int cost;
@@ -10,6 +12,9 @@ namespace Algorizm
 		int pos_x;
 		int pos_y;
 		Search_Node* pre_node;
+		saitan_node_dir node_dir;
+		bool isNoWall;
+		bool isRow;
 	}NODE;
 
 	class HeapQueue
