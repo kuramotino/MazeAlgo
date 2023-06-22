@@ -8,8 +8,8 @@ void MiceObj::Initialize()
 {
 	Handle = LoadGraph("D:/お絵描き/mouse/mouse.png"); // 画像をロード
 	DrawRotaGraph(pos_x, Mouse::getInstance()->WindowHeight-pos_y, 1, -1*lot/180*acos(-1), Handle, TRUE); // データハンドルを使って画像を描画
-	pos_x = 47;
-	pos_y = 30;
+	pos_x = 47;//47/300
+	pos_y = 30;//30/300
 	lot = 0;
 	isKasokuEnd = true;
 }
@@ -46,6 +46,50 @@ void MiceObj::SetDaikei(Command cm)
 		y2 = first_pos_y + 17 * sin((first_lot + 90) / 180 * acos(-1));
 		x3 = x2 + 17 * cos((first_lot + bu_tar_x + 90) / 180 * acos(-1));
 		y3 = y2 + 17 * sin((first_lot + bu_tar_x + 90) / 180 * acos(-1));
+		sla_t = 0;
+	}
+	if (cm.isOO90)
+	{
+		float bu_tar_x = (cm.TRFL) ? -1 * tar_x : tar_x;
+		x2 = first_pos_x + 34 * cos((first_lot + 90) / 180 * acos(-1));
+		y2 = first_pos_y + 34 * sin((first_lot + 90) / 180 * acos(-1));
+		x3 = x2 + 34 * cos((first_lot + bu_tar_x + 90) / 180 * acos(-1));
+		y3 = y2 + 34 * sin((first_lot + bu_tar_x + 90) / 180 * acos(-1));
+		sla_t = 0;
+	}
+	else if (cm.isOO180)
+	{
+		int TrFl = (cm.TRFL) ? 1 : -1;
+		x3 = first_pos_x + 34.0 * TrFl * sin((first_lot + tar_x - 90) / 180 * acos(-1));
+		y3 = first_pos_y - 34.0 * TrFl * cos((first_lot + tar_x - 90) / 180 * acos(-1));
+		x2 = (first_pos_x + x3) / 2;
+		y2 = (first_pos_y + y3) / 2;
+		x2 += 34 * cos((first_lot + 90) / 180 * acos(-1));
+		y2 += 34 * sin((-1*first_lot + 90) / 180 * acos(-1));
+		sla_t = 0;
+	}
+	else if (cm.isDiag_in45)
+	{
+		float bu_tar_x = (cm.TRFL) ? -2 * tar_x : 2 * tar_x;
+		x2 = first_pos_x - 34 * cos((-1 * first_lot + 90) / 180 * acos(-1));
+		y2 = first_pos_y + 34 * sin((-1 * first_lot + 90) / 180 * acos(-1));
+		x3 = x2 + 17 * cos((first_lot + bu_tar_x + 90) / 180 * acos(-1));
+		y3 = y2 + 17 * sin((first_lot + bu_tar_x + 90) / 180 * acos(-1));
+		sla_t = 0;
+		bu_x1_2 = x2 - first_pos_x;
+		bu_y1_2 = y2 - first_pos_y;
+		bu_x2_3 = x3 - x2;
+		bu_y2_3 = y3 - y2;
+		bu_TRFL = cm.TRFL;
+	}
+	else if (cm.isDiag_out45)
+	{
+		tar_x = (bu_TRFL) ? tar_x : -1 * tar_x;
+		now_v = (bu_TRFL) ? now_v : -1 * now_v;
+		x2 = first_pos_x + bu_x2_3;
+		y2 = first_pos_y + bu_y2_3;
+		x3 = x2 + bu_x1_2;
+		y3 = y2 + bu_y1_2;
 		sla_t = 0;
 	}
 }

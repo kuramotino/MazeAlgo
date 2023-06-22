@@ -279,7 +279,7 @@ namespace Algorizm
 		
 		if (MiceVec == North)
 		{
-			node = *(my_potential->RetSaitanNode(x - 1, y, true));
+			node = *(my_potential->RetSaitanNode(y - 1, x, true));
 		}
 		else if (MiceVec == East)
 		{
@@ -287,7 +287,7 @@ namespace Algorizm
 		}
 		else if (MiceVec == South)
 		{
-			node = *(my_potential->RetSaitanNode(x, y, true));
+			node = *(my_potential->RetSaitanNode(y, x, true));
 		}
 		else if (MiceVec == West)
 		{
@@ -328,11 +328,23 @@ namespace Algorizm
 				break;
 			}
 		}
-		return ret;
+		int nextpass = (ret == Left) ? -2 : ((ret == Right) ? -3 : 2);
+		return nextpass;
 	}
 
 	void Algorizm::Planning::BlockWall()
 	{
 		my_potential->BlockKnowWall();
 	}
+
+	void Algorizm::Planning::MiceInit()//‹@‘Ì‚ÌˆÊ’uŒü‚«‚ð‰Šú‰»‚·‚é
+	{
+		my_status->InitStatus();
+	}
+
+	bool Algorizm::Planning::RetIsSimEnd()
+	{
+		return isSimEnd;
+	}
+
 }

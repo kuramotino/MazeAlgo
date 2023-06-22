@@ -168,6 +168,7 @@
     <ClCompile Include="MiceStatus.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="OnClickEventer.cpp" />
+    <ClCompile Include="Pass_Generator.cpp" />
     <ClCompile Include="Planning.cpp" />
     <ClCompile Include="Poll.cpp" />
     <ClCompile Include="ResetObj.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="MiceStatus.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="OnClickEventer.h" />
+    <ClInclude Include="Pass_Generator.h" />
     <ClInclude Include="Planning.h" />
     <ClInclude Include="Poll.h" />
     <ClInclude Include="ResetObj.h" />

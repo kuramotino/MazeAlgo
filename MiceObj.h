@@ -4,10 +4,10 @@
 
 class MiceObj : public SimTask
 {
-    float pos_x = 47;
-    float pos_y = 30;
-    float first_pos_x = 0;
-    float first_pos_y = 0;
+    float pos_x = 47;//‰ŠúˆÊ’u47
+    float pos_y = 30;//‰ŠúˆÊ’u30
+    float first_pos_x = 0;//0
+    float first_pos_y = 0;//0
     float first_lot = 0;
     float tar_x = 0;
     float lot = 0;
@@ -22,6 +22,12 @@ class MiceObj : public SimTask
    
 
     Command my_cm;
+
+    float bu_x1_2;
+    float bu_y1_2;
+    float bu_x2_3;
+    float bu_y2_3;
+    bool bu_TRFL = false;
 
 public:
     void Initialize();

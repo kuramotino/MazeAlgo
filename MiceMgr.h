@@ -19,6 +19,7 @@ public:
     void Update();
     void Draw();
     void SetAct(enum command_type type);
+    void SetAct(enum command_type type, int st_size);
     bool RetKasokuEnd();
     bool RetStartPause();
 };

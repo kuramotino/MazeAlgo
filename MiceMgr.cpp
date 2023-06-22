@@ -39,6 +39,17 @@ void MiceMgr::SetAct(enum command_type type)
 	isKasokuEnd = miceObj.RetisKasoku();
 }
 
+void MiceMgr::SetAct(enum command_type type, int st_size)
+{
+	if (miceObj.RetisKasoku() == true)
+	{
+		Command cm(type);
+		cm.bu_tar_x = 17 * st_size;
+		miceObj.SetDaikei(cm);
+	}
+	isKasokuEnd = miceObj.RetisKasoku();
+}
+
 bool MiceMgr::RetKasokuEnd()
 {
 	return miceObj.RetisKasoku();
