@@ -69,6 +69,7 @@ Command::Command(enum command_type type)
 		TRFL = true;
 		isSenkai = false;
 		isDiag_out45 = true;
+		//isDiag_in45 = true;
 		sla_time = 15;
 		bu_tar_v = bu_tar_x / sla_time;
 		break;
@@ -79,26 +80,69 @@ Command::Command(enum command_type type)
 		TRFL = false;
 		isSenkai = false;
 		isDiag_out45 = true;
+		//isDiag_in45 = true;
 		sla_time = 15;
 		bu_tar_v = bu_tar_x / sla_time;
 		break;
 
 	case Right_Diag_in135:
+		bu_tar_x = 135;
+		isTurn = true;
+		TRFL = true;
+		isSenkai = false;
+		isDiag_in135 = true;
+		sla_time = 15;
+		bu_tar_v = bu_tar_x / sla_time;
 		break;
 
 	case Left_Diag_in135:
+		bu_tar_x = 135;
+		isTurn = true;
+		TRFL = false;
+		isSenkai = false;
+		isDiag_in135 = true;
+		sla_time = 15;
+		bu_tar_v = bu_tar_x / sla_time;
 		break;
 
 	case Right_Diag_out135:
+		bu_tar_x = 135;
+		isTurn = true;
+		TRFL = true;
+		isSenkai = false;
+		isDiag_out135 = true;
+		sla_time = 15;
+		bu_tar_v = bu_tar_x / sla_time;
 		break;
 
 	case Left_Diag_out135:
+		bu_tar_x = 135;
+		isTurn = true;
+		TRFL = false;
+		isSenkai = false;
+		isDiag_out135 = true;
+		sla_time = 15;
+		bu_tar_v = bu_tar_x / sla_time;
 		break;
 
 	case Right_V90:
+		bu_tar_x = 90;
+		isTurn = true;
+		TRFL = true;
+		isSenkai = false;
+		isV90 = true;
+		sla_time = 10;
+		bu_tar_v = bu_tar_x / sla_time;
 		break;
 
 	case Left_V90:
+		bu_tar_x = 90;
+		isTurn = true;
+		TRFL = false;
+		isSenkai = false;
+		isV90 = true;
+		sla_time = 10;
+		bu_tar_v = bu_tar_x / sla_time;
 		break;
 
 	case Right_OO90:
@@ -146,6 +190,14 @@ Command::Command(enum command_type type)
 		bu_tar_x = 17;//1マス34pixel(移動量xかy)
 		isTurn = false;//turnかどうか
 		isSenkai = false;
+		break;
+
+	case Diag_Stra:
+		bu_tar_v = 6;//4目標終端速度
+		bu_tar_x = 24;//1マス34pixel(移動量xかy)
+		isTurn = false;//turnかどうか
+		isSenkai = false;
+		isDiagStra = true;
 		break;
 	}
 }

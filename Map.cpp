@@ -274,21 +274,24 @@ namespace Algorizm
 
 	void Algorizm::Map::BlockWall(int x, int y)//‚ ‚éˆÊ’ux,y‚Ì•Ç‚ğ‚·‚×‚Ä‚Ó‚³‚®ŠÖ”
 	{
-		if (y != 0)
+		if (!(x == 7 && y == 7) && !(x == 7 && y == 8))//‚±‚±‚ğ•ÏX‚µ‚ÄƒS[ƒ‹‚ğ‚Ó‚³‚ª‚È‚¢‚æ‚¤‚É‚·‚é
 		{
-			Row[y - 1] = (Row[y - 1] | (1 << x));
-		}
-		if (y != 15)
-		{
-			Row[y] = (Row[y] | (1 << x));
-		}
-		if (x != 0)
-		{
-			Column[x - 1] = (Column[x - 1] | (1 << y));
-		}
-		if (x != 15)
-		{
-			Column[x] = (Column[x] | (1 << y));
+			if (y != 0)
+			{
+				Row[y - 1] = (Row[y - 1] | (1 << x));
+			}
+			if (y != 15)
+			{
+				Row[y] = (Row[y] | (1 << x));
+			}
+			if (x != 0)
+			{
+				Column[x - 1] = (Column[x - 1] | (1 << y));
+			}
+			if (x != 15)
+			{
+				Column[x] = (Column[x] | (1 << y));
+			}
 		}
 	}
 }

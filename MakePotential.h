@@ -32,10 +32,10 @@ namespace Algorizm
 		NODE saitan_node_column[15][16];//Å’Z—p‚Ìƒm[ƒh
 		NODE saitan_node_row[15][16];//Å’Z—p‚Ìƒm[ƒh
 		NODE no_conect_node;//Œq‚ª‚ç‚È‚¢ƒm[ƒh
-		int strate_edge_cost = 7;
-		int diagonal_edge_cost = 5;
-		int continue_st_edge_cost = 3;
-		int continue_dag_edge_cost = 3;
+		int strate_edge_cost = 4;//7
+		int diagonal_edge_cost = 5;//5
+		int continue_st_edge_cost = 3;//3
+		int continue_dag_edge_cost = 7;//3
 		Map* map;
 
 	public:

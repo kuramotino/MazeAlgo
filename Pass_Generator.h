@@ -13,6 +13,18 @@ namespace Algorizm
 		int OO90_L[3] = { 1,-2,1 };
 		int OO180_R[4] = { 1,-3,-3,1 };
 		int OO180_L[4] = { 1,-2,-2,1 };
+		int Diag_in45_R[2] = { 1,-3 };
+		int Diag_in45_L[2] = { 1,-2 };
+		int Diag_out45_R[2] = { -3,1 };
+		int Diag_out45_L[2] = { -2,1 };
+		int Diag_in135_R[3] = { 1,-3,-3 };
+		int Diag_in135_L[3] = { 1,-2,-2 };
+		int Diag_out135_R[3] = { -3,-3,1 };
+		int Diag_out135_L[3] = { -2,-2,1 };
+		int Diag_V90_R[2] = { -3,-3 };
+		int Diag_V90_L[2] = { -2,-2 };
+		int Diag_Stra_R[1] = { -3 };
+		int Diag_Stra_L[1] = { -2 };
 
 	public:
 		void SetPlan(Planning* bu_plan);

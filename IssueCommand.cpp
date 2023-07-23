@@ -9,6 +9,7 @@ namespace Algorizm
 		isStart = false;
 		isStop = false;
 		isStopSenkai = false;
+		Stopcnt = 0;
 		isSetPass = false;
 		my_plan->SetReturn(false);
 		my_plan->SetTansakuEnd(false);
@@ -47,8 +48,20 @@ namespace Algorizm
 		}
 		if (my_micemgr->RetKasokuEnd() == true && isStop && !isStopSenkai && !my_micemgr->RetStartPause())
 		{
-			my_micemgr->SetAct(Right_sen);
-			isStopSenkai = true;
+			if (Stopcnt == 0)
+			{
+				my_micemgr->SetAct(Stra);
+			}
+			else if (Stopcnt == 1)
+			{
+				my_micemgr->SetAct(Right_sen);
+			}
+
+			if (Stopcnt == 1)
+			{
+				isStopSenkai = true;
+			}
+			Stopcnt++;
 		}
 	}
 
@@ -96,6 +109,50 @@ namespace Algorizm
 				{
 					my_micemgr->SetAct(Right_OO90);
 				}
+				else if (nextpass == -8)
+				{
+					my_micemgr->SetAct(Left_Diag_in45);
+				}
+				else if (nextpass == -9)
+				{
+					my_micemgr->SetAct(Right_Diag_in45);
+				}
+				else if (nextpass == -10)
+				{
+					my_micemgr->SetAct(Left_Diag_in135);
+				}
+				else if (nextpass == -11)
+				{
+					my_micemgr->SetAct(Right_Diag_in135);
+				}
+				else if (nextpass == -12)
+				{
+					my_micemgr->SetAct(Left_Diag_out45);
+				}
+				else if (nextpass == -13)
+				{
+					my_micemgr->SetAct(Right_Diag_out45);
+				}
+				else if (nextpass == -14)
+				{
+					my_micemgr->SetAct(Left_Diag_out135);
+				}
+				else if (nextpass == -15)
+				{
+					my_micemgr->SetAct(Right_Diag_out135);
+				}
+				else if (nextpass == -16)
+				{
+					my_micemgr->SetAct(Left_V90);
+				}
+				else if (nextpass == -17)
+				{
+					my_micemgr->SetAct(Right_V90);
+				}
+				else if (nextpass == -100)
+				{
+					my_micemgr->SetAct(Diag_Stra);
+				}
 			}
 		}
 	}
@@ -117,7 +174,7 @@ namespace Algorizm
 		{
 			//my_micemgr->SetAct(Stra);
 			//my_micemgr->SetAct(Right_sla);
-			my_micemgr->SetAct(Right_sen);
+			//my_micemgr->SetAct(Right_sen);
 
 
 			isStart = true;
@@ -126,15 +183,25 @@ namespace Algorizm
 		{
 			if (cnt == 0)
 			{
-				//my_micemgr->SetAct(Left_Diag_in45);
-				my_micemgr->SetAct(Right_OO90);
+				//my_micemgr->SetAct(Right_Diag_out45);
+				//my_micemgr->SetAct(Right_OO90);
+				//my_micemgr->SetAct(Left_Diag_out135);
 			}
 			else if (cnt == 1)
 			{
+				//my_micemgr->SetAct(Diag_Stra);
+				my_micemgr->SetAct(Right_V90);
 				//my_micemgr->SetAct(Left_Diag_out45);
+				//my_micemgr->SetAct(Right_Diag_in135);
+			}
+			else if (cnt == 2)
+			{
+				//my_micemgr->SetAct(Diag_Stra);
+				//my_micemgr->SetAct(Left_Diag_out45);
+				//my_micemgr->SetAct(Left_V90);
 			}
 			cnt++;
-			if (cnt == 2)
+			if (cnt == 3)
 			{
 				oneshot_flag = true;
 			}

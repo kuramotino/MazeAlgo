@@ -19,11 +19,15 @@ namespace Algorizm
 		{
 			pass[i] = 0;
 		}
-		//pass[0] = 2;
+		pass[0] = 1;
+		n++;
+		pass[1] = 1;
+		n++;
 
 		while (1)
 		{
 			int bu_pass = my_plan->saitan_dijkstra(goal_size, goal_pos);//ŽŸ‚Ìs“®‚ð“¾‚é
+
 			if (bu_pass > 1)
 			{
 				for (int i = 0; i < bu_pass; i++)
@@ -52,6 +56,20 @@ namespace Algorizm
 		Comp_Pass(OO90_L, 3, -5);
 		Comp_Pass(OO180_R, 4, -6);
 		Comp_Pass(OO180_L, 4, -4);
+
+		Comp_Pass(Diag_in135_R, 3, -11);
+		Comp_Pass(Diag_in135_L, 3, -10);
+		Comp_Pass(Diag_in45_R, 2, -9);
+		Comp_Pass(Diag_in45_L, 2, -8);
+		Comp_Pass(Diag_out135_R, 3, -15);
+		Comp_Pass(Diag_out135_L, 3, -14);
+		Comp_Pass(Diag_out45_R, 2, -13);
+		Comp_Pass(Diag_out45_L, 2, -12);
+		Comp_Pass(Diag_V90_R, 2, -17);
+		Comp_Pass(Diag_V90_L, 2, -16);
+		Comp_Pass(Diag_Stra_R, 1, -100);
+		Comp_Pass(Diag_Stra_L, 1, -100);
+
 		St_Comp_Pass();
 	}
 

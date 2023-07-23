@@ -16,9 +16,10 @@ namespace Algorizm
 		bool isStart = false;
 		bool isStop = false;
 		bool isStopSenkai = false;
+		int Stopcnt = 0;
 		bool isSetPass = false;
 
-		bool isOneShot = true;//ˆê“x‚Ì‚Ý‚©(sim‚Ì‚Ý)
+		bool isOneShot = false;//ˆê“x‚Ì‚Ý‚©(sim‚Ì‚Ý)
 		bool oneshot_flag = false;
 		int cnt = 0;
 

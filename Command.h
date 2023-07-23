@@ -3,7 +3,7 @@
 enum command_type {
 	Stra, Left_sla, Right_sla, Left_sen, Right_sen, Stra_Back, Left_f_off, Left_b_off, Mid_Stra, Stop, Fail_Stop, Break_Stop,
 	Right_Diag_in45, Left_Diag_in45, Right_Diag_out45, Left_Diag_out45, Right_Diag_in135, Left_Diag_in135, Right_Diag_out135, Left_Diag_out135, Right_V90, Left_V90,
-	Right_OO90, Left_OO90, Right_OO180, Left_OO180, Harf_Stra,
+	Right_OO90, Left_OO90, Right_OO180, Left_OO180, Harf_Stra,Diag_Stra
 };
 
 class Command
@@ -22,6 +22,7 @@ public:
 	bool isV90 = false;
 	bool isOO90 = false;
 	bool isOO180 = false;
+	bool isDiagStra = false;
 
 public:
 	Command();

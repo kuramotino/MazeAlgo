@@ -271,8 +271,7 @@ namespace Algorizm
 
 	int Algorizm::Planning::saitan_dijkstra(int goal_size, POS* goal_pos)
 	{
-		NODE node;
-		NODE pre_node;
+		NODE node = { 999,true,0,0,0,NN,false,false };
 		int pre_x, pre_y;
 		my_potential->saitan_dijkstra(goal_size, goal_pos);//現在のノードを更新する
 		my_status->RetPos(&x, &y, &MiceVec);
