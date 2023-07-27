@@ -157,6 +157,7 @@ namespace Algorizm
 			for (int i = 0; i < 4; i++)
 			{
 				sum_west += map->isKnowWall(x - 1, y, (Dir)i);
+				sum_west = (map->isMKnowWall(x - 1, y, (Dir)i) == 0) ? sum_west + 1 : sum_west;
 			}
 			isKnowMap[x - 1] = (sum_west >= 3) ? isKnowMap[x - 1] | (1 << y) : isKnowMap[x - 1];
 		}
@@ -166,6 +167,7 @@ namespace Algorizm
 			for (int i = 0; i < 4; i++)
 			{
 				sum_east+=map->isKnowWall(x + 1, y, (Dir)i);
+				sum_east = (map->isMKnowWall(x + 1, y, (Dir)i) == 0) ? sum_east + 1 : sum_east;
 			}
 			isKnowMap[x + 1] = (sum_east >= 3) ? isKnowMap[x + 1] | (1 << y) : isKnowMap[x + 1];
 		}
@@ -175,6 +177,7 @@ namespace Algorizm
 			for (int i = 0; i < 4; i++)
 			{
 				sum_south+=map->isKnowWall(x, y - 1, (Dir)i);
+				sum_south = (map->isMKnowWall(x, y - 1, (Dir)i) == 0) ? sum_south + 1 : sum_south;
 			}
 			isKnowMap[x] = (sum_south >= 3) ? isKnowMap[x] | (1 << (y - 1)) : isKnowMap[x];
 		}
@@ -184,6 +187,7 @@ namespace Algorizm
 			for (int i = 0; i < 4; i++)
 			{
 				sum_north+=map->isKnowWall(x, y + 1, (Dir)i);
+				sum_north = (map->isMKnowWall(x, y + 1, (Dir)i) == 0) ? sum_north + 1 : sum_north;
 			}
 			isKnowMap[x] = (sum_north >= 3) ? isKnowMap[x] | (1 << (y + 1)) : isKnowMap[x];
 		}

@@ -38,6 +38,7 @@ namespace Algorizm
 				else
 				{
 					Column[current_x - 1] = Column[current_x - 1] & ~(1 << current_y);
+					M_Column[current_x - 1] = M_Column[current_x - 1] & ~(1 << current_y);
 				}
 			}
 			
@@ -50,6 +51,7 @@ namespace Algorizm
 				else
 				{
 					Column[current_x] = Column[current_x] & ~(1 << current_y);
+					M_Column[current_x] = M_Column[current_x] & ~(1 << current_y);
 				}
 			}
 			
@@ -62,6 +64,7 @@ namespace Algorizm
 				else
 				{
 					Row[current_y] = Row[current_y] & ~(1 << current_x);
+					M_Row[current_y] = M_Row[current_y] & ~(1 << current_x);
 				}
 			}
 			break;
@@ -76,6 +79,7 @@ namespace Algorizm
 				else
 				{
 					Column[current_x] = Column[current_x] & ~(1 << current_y);
+					M_Column[current_x] = M_Column[current_x] & ~(1 << current_y);
 				}
 			}
 
@@ -88,6 +92,7 @@ namespace Algorizm
 				else
 				{
 					Row[current_y - 1] = Row[current_y - 1] & ~(1 << current_x);
+					M_Row[current_y - 1] = M_Row[current_y - 1] & ~(1 << current_x);
 				}
 			}
 
@@ -100,6 +105,7 @@ namespace Algorizm
 				else
 				{
 					Row[current_y] = Row[current_y] & ~(1 << current_x);
+					M_Row[current_y] = M_Row[current_y] & ~(1 << current_x);
 				}
 			}
 			break;
@@ -114,6 +120,7 @@ namespace Algorizm
 				else
 				{
 					Column[current_x - 1] = Column[current_x - 1] & ~(1 << current_y);
+					M_Column[current_x - 1] = M_Column[current_x - 1] & ~(1 << current_y);
 				}
 			}
 
@@ -126,6 +133,7 @@ namespace Algorizm
 				else
 				{
 					Column[current_x] = Column[current_x] & ~(1 << current_y);
+					M_Column[current_x] = M_Column[current_x] & ~(1 << current_y);
 				}
 			}
 
@@ -138,6 +146,7 @@ namespace Algorizm
 				else
 				{
 					Row[current_y - 1] = Row[current_y - 1] & ~(1 << current_x);
+					M_Row[current_y - 1] = M_Row[current_y - 1] & ~(1 << current_x);
 				}
 			}
 			break;
@@ -152,6 +161,7 @@ namespace Algorizm
 				else
 				{
 					Column[current_x - 1] = Column[current_x - 1] & ~(1 << current_y);
+					M_Column[current_x - 1] = M_Column[current_x - 1] & ~(1 << current_y);
 				}
 			}
 
@@ -164,6 +174,7 @@ namespace Algorizm
 				else
 				{
 					Row[current_y - 1] = Row[current_y - 1] & ~(1 << current_x);
+					M_Row[current_y - 1] = M_Row[current_y - 1] & ~(1 << current_x);
 				}
 			}
 
@@ -176,6 +187,7 @@ namespace Algorizm
 				else
 				{
 					Row[current_y] = Row[current_y] & ~(1 << current_x);
+					M_Row[current_y] = M_Row[current_y] & ~(1 << current_x);
 				}
 			}
 			break;
@@ -208,6 +220,36 @@ namespace Algorizm
 			
 			return (x != 0) ? (Column[x - 1] & (1 << y)) >> y : 1;
 			
+			break;
+		}
+	}
+
+	int Algorizm::Map::isMKnowWall(int x, int y, enum Dir wall_dir)
+	{
+		switch (wall_dir)
+		{
+		case North:
+
+			return (y != 15) ? (M_Row[y] & (1 << x)) >> x : 1;
+
+			break;
+
+		case East:
+
+			return (x != 15) ? (M_Column[x] & (1 << y)) >> y : 1;
+
+			break;
+
+		case South:
+
+			return (y != 0) ? (M_Row[y - 1] & (1 << x)) >> x : 1;
+
+			break;
+
+		case West:
+
+			return (x != 0) ? (M_Column[x - 1] & (1 << y)) >> y : 1;
+
 			break;
 		}
 	}
