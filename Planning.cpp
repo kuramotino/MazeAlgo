@@ -165,6 +165,7 @@ namespace Algorizm
 				isReturn = my_status->GoalCheck(goal_size, (goal_pos + i)->x, (goal_pos + i)->y);
 				if (isReturn)
 				{
+					my_potential->SetKnowMap((goal_pos + i)->x, (goal_pos + i)->y);//位置x,yを既知区画にする
 					break;
 				}
 			}
@@ -260,13 +261,153 @@ namespace Algorizm
 
 		for (int i = 0; i < goal_size; i++)//ゴール座標に到達していたら探索終了
 		{
-			isTansakuEnd = my_status->GoalCheck(goal_size, (goal_pos + i)->x, (goal_pos + i)->y);
-			if (isTansakuEnd)
+			//isTansakuEnd = my_status->GoalCheck(goal_size, (goal_pos + i)->x, (goal_pos + i)->y);
+			//if (isTansakuEnd)
+			//{
+				//break;
+			//}
+
+			isTentativeTansakuEnd = my_status->GoalCheck(goal_size, (goal_pos + i)->x, (goal_pos + i)->y);
+			if (isTentativeTansakuEnd)
 			{
+				if ((goal_pos + i)->x == 0 && (goal_pos + i)->y == 0)
+				{
+					isTansakuEnd = true;
+				}
+				my_potential->SetKnowMap((goal_pos + i)->x, (goal_pos + i)->y);//位置x,yを既知区画にする
 				break;
 			}
 		}
 		return ret;
+	}
+
+	enum Vec Algorizm::Planning::z_dijkstra()//全面探索を行う関数
+	{
+		if (isTentativeTansakuEnd)//仮のゴールにたどり着いたら，次のゴールを設定する
+		{
+			//goal座標を設定する
+			set_goal_pos();
+			isTentativeTansakuEnd = false;
+		}
+
+		int pre_x;
+		int pre_y;
+		enum Dir pre_vec;
+		my_status->RetPos(&pre_x, &pre_y, &pre_vec);
+		
+		enum Vec ret_num;
+		my_potential->search_dijkstra(1, &Tentative_goal_pos);//歩数マップ，壁情報の更新
+
+		int now_pos_dist = my_potential->RetDist(pre_x, pre_y);
+
+		if (now_pos_dist == 999)//goalが塞がれていたらgoalを変更する
+		{
+			BlockIsopos();
+			set_goal_pos();
+			ret_num = Back;
+			UpDataVecPos(ret_num);
+		}
+		else
+		{
+			//ret_num = s_dijkstra(1, &Tentative_goal_pos);//歩数マップ，位置向き，壁情報の更新
+
+			NODE node;
+			NODE pre_node;
+			int pre_x, pre_y;
+			int bux;
+			int buy;
+			enum Dir bu_vec;
+			my_status->RetPos(&bux, &buy, &bu_vec);
+			node = my_potential->ret_search_node(bux, buy);
+			pre_node = *(node.pre_node);
+			pre_x = pre_node.pos_x;
+			pre_y = pre_node.pos_y;
+
+
+			//1ある位置(x,y)につながっているノードの座標から次に進む向きを決定
+			if (bu_vec == North)
+			{
+				ret_num = (buy + 1 == pre_y) ? Front : ((bux + 1 == pre_x) ? Right : ((bux - 1 == pre_x) ? Left : Back));
+			}
+			else if (bu_vec == East)
+			{
+				ret_num = (bux + 1 == pre_x) ? Front : ((buy - 1 == pre_y) ? Right : ((buy + 1 == pre_y) ? Left : Back));
+			}
+			else if (bu_vec == South)
+			{
+				ret_num = (buy - 1 == pre_y) ? Front : ((bux - 1 == pre_x) ? Right : ((bux + 1 == pre_x) ? Left : Back));
+			}
+			else if (bu_vec == West)
+			{
+				ret_num = (bux - 1 == pre_x) ? Front : ((buy + 1 == pre_y) ? Right : ((buy - 1 == pre_y) ? Left : Back));
+			}
+
+			UpDataVecPos(ret_num);//次に進む向きから位置と向きを更新
+
+			for (int i = 0; i < 1; i++)//ゴール座標に到達していたら探索終了
+			{
+				isTentativeTansakuEnd = my_status->GoalCheck(1, Tentative_goal_pos.x, Tentative_goal_pos.y);
+				if (isTentativeTansakuEnd)
+				{
+					if (Tentative_goal_pos.x == 0 && Tentative_goal_pos.y == 0)
+					{
+						isTansakuEnd = true;
+					}
+					my_potential->SetKnowMap(Tentative_goal_pos.x, Tentative_goal_pos.y);//位置x,yを既知区画にする
+					break;
+				}
+			}
+		}
+
+		return ret_num;
+	}
+
+	void Algorizm::Planning::set_goal_pos()//現在の座標から最も近い未知区画をgoalに設定する関数
+	{
+		POS bu_pos = { 255,255 };
+		int goal_len = 0;//0ゴールへの距離
+		int pre_goal_len = 512;
+		int n_x;
+		int n_y;
+		enum Dir n_vec;
+		my_status->RetPos(&n_x, &n_y, &n_vec);
+
+		for (int i = 0; i < 16; i++)
+		{
+			for (int j = 0; j < 16; j++)
+			{
+				if (my_potential->RetKnowMap(i, j) == 0)//0その区画が未知区間なら
+				{
+					goal_len = (n_x - i) * (n_x - i) + (n_y - j) * (n_y - j);
+					if (goal_len < pre_goal_len)
+					{
+						pre_goal_len = goal_len;
+						bu_pos.x = i;
+						bu_pos.y = j;
+					}
+				}
+			}
+		}
+		Tentative_goal_pos = bu_pos;
+
+		if (bu_pos.x == 255 || bu_pos.y == 255)//1仮のゴールが見つからないならスタート地点をゴールにする
+		{
+			Tentative_goal_pos = { 0,0 };
+		}
+	}
+
+	void Algorizm::Planning::BlockIsopos()//孤立区画をつぶす関数
+	{
+		for (int i = 0; i < 16; i++)
+		{
+			for (int j = 0; j < 16; j++)
+			{
+				if (my_potential->RetDist(i, j) != 999)
+				{
+					my_potential->SetKnowMap(i, j);//位置i,jを既知区画にする
+				}
+			}
+		}
 	}
 
 	int Algorizm::Planning::saitan_dijkstra(int goal_size, POS* goal_pos)

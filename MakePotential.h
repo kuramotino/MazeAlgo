@@ -32,10 +32,10 @@ namespace Algorizm
 		NODE saitan_node_column[15][16];//最短用のノード
 		NODE saitan_node_row[15][16];//最短用のノード
 		NODE no_conect_node;//繋がらないノード
-		int strate_edge_cost = 4;//7
+		int strate_edge_cost = 7;//7
 		int diagonal_edge_cost = 5;//5
 		int continue_st_edge_cost = 3;//3
-		int continue_dag_edge_cost = 7;//3
+		int continue_dag_edge_cost = 3;//3
 		Map* map;
 
 	public:
@@ -44,6 +44,7 @@ namespace Algorizm
 		POS popQueue_walk(QUEUE_T* queue);//queueのpop
 		void Init_Dist(void);//歩数マップの初期化を行う関数
 		void DecideDist(int goal_size,POS* goal_pos);//歩数マップの更新を行う関数
+		void InitSerch_Dist(void);//歩数マップの初期化を行う関数
 		void search_dijkstra(int goal_size, POS* goal_pos);//探索ダイクストラ法の歩数マップ更新を行う関数
 		int RetDist(int x, int y);//歩数マップの値を返す関数
 		void SetMap(Map* bu_map);//マップのセットを行う関数
@@ -57,5 +58,7 @@ namespace Algorizm
 		int CalEdgeCost(NODE* prenode,NODE* nownode);//あるノードに接続されたエッジのコストを計算する関数
 		void SaitanPushNode(NODE* node, NODE* new_node, int edge_cost, saitan_node_dir dir);//あるノードをプッシュする関数
 		void BlockKnowWall();//未知区間の壁をふさぐ関数
+		int RetKnowMap(int x, int y);//ある位置x,yが既知かどうかを返す関数
+		void SetKnowMap(int x, int y);//ある位置x,yの既知区画を変更する関数
 	};
 }

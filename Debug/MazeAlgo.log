@@ -1,49 +1,13 @@
-﻿  InitAlgo.cpp
-  MiceObj.cpp
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(10,57): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(10,16): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(24,57): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(24,16): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(42,11): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(47,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(48,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(49,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(50,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(56,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(57,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(58,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(59,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(65,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(66,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(69,52): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(70,55): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(76,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(77,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(78,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(79,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(85,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(86,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(87,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(88,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(94,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(95,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(96,29): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(97,29): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(103,50): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(104,50): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(105,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(106,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(112,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(113,20): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(114,31): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(115,31): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(126,53): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(127,56): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(131,24): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(132,24): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(140,53): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(141,53): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(145,24): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\MiceObj.cpp(146,24): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+﻿  DebugView.cpp
+  InitAlgo.cpp
+  IssueCommand.cpp
+  MakePotential.cpp
+  MiceStatus.cpp
+  Pass_Generator.cpp
+  Planning.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.cpp(416,7): warning C4101: 'pre_x': ローカル変数は 1 度も使われていません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.cpp(416,14): warning C4101: 'pre_y': ローカル変数は 1 度も使われていません。
+  ResetObj.cpp
+  main.cpp
   コードを生成中...
   MazeAlgo.vcxproj -> C:\Users\小峰龍之介\source\repos\MazeAlgo\Debug\MazeAlgo.exe

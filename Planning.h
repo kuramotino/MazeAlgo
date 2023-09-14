@@ -23,6 +23,8 @@ namespace Algorizm
 		bool isReturn = false;//戻り探索かどうか
 		bool isTansakuEnd = false;//探索が終了しているか
 		bool isSimEnd = false;//経路導出が終了しているか
+		bool isTentativeTansakuEnd = true;//仮のゴールに着いたかどうか
+		POS Tentative_goal_pos = { 255,255 };//一時的なゴール座標
 		MiceStatus* my_status;
 		MakePotential* my_potential;
 		Map* my_map;
@@ -30,6 +32,9 @@ namespace Algorizm
 	public:
 		enum Vec Adati(int goal_size, POS* goal_pos);//足立法に則って次の行動を返す関数
 		enum Vec s_dijkstra(int goal_size, POS* goal_pos);//ダイクストラ法に則って次の行動を返す関数
+		enum Vec z_dijkstra();//全面探索を行う関数
+		void set_goal_pos();//goalを設定する関数
+		void BlockIsopos();//孤立区画をつぶす関数
 		int saitan_dijkstra(int goal_size, POS* goal_pos);//斜めのダイクストラ法に則って次の行動を返す関数
 		void SetObj(MiceStatus* status, MakePotential* potential, Map* map);//必要なオブジェクトをセットする関数
 		void UpDataVecPos(enum Vec vec);//次に進む向き(左，右，前，後)から，次の位置，向きを更新する関数

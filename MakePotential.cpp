@@ -154,42 +154,46 @@ namespace Algorizm
 		if (x != 0)
 		{
 			int sum_west = 0;
+			int sum_M_west = 4;
 			for (int i = 0; i < 4; i++)
 			{
 				sum_west += map->isKnowWall(x - 1, y, (Dir)i);
-				sum_west = (map->isMKnowWall(x - 1, y, (Dir)i) == 0) ? sum_west + 1 : sum_west;
+				sum_M_west -= map->isMKnowWall(x - 1, y, (Dir)i);
 			}
-			isKnowMap[x - 1] = (sum_west >= 3) ? isKnowMap[x - 1] | (1 << y) : isKnowMap[x - 1];
+			isKnowMap[x - 1] = (sum_west >= 3 || sum_M_west == 4 || (sum_west + sum_M_west) == 4) ? isKnowMap[x - 1] | (1 << y) : isKnowMap[x - 1];
 		}
 		if (x != 15)
 		{
 			int sum_east = 0;
+			int sum_M_east = 4;
 			for (int i = 0; i < 4; i++)
 			{
-				sum_east+=map->isKnowWall(x + 1, y, (Dir)i);
-				sum_east = (map->isMKnowWall(x + 1, y, (Dir)i) == 0) ? sum_east + 1 : sum_east;
+				sum_east += map->isKnowWall(x + 1, y, (Dir)i);
+				sum_M_east -= map->isMKnowWall(x + 1, y, (Dir)i);
 			}
-			isKnowMap[x + 1] = (sum_east >= 3) ? isKnowMap[x + 1] | (1 << y) : isKnowMap[x + 1];
+			isKnowMap[x + 1] = (sum_east >= 3 || sum_M_east == 4 || (sum_east + sum_M_east) == 4) ? isKnowMap[x + 1] | (1 << y) : isKnowMap[x + 1];
 		}
 		if (y != 0)
 		{
 			int sum_south = 0;
+			int sum_M_south = 4;
 			for (int i = 0; i < 4; i++)
 			{
-				sum_south+=map->isKnowWall(x, y - 1, (Dir)i);
-				sum_south = (map->isMKnowWall(x, y - 1, (Dir)i) == 0) ? sum_south + 1 : sum_south;
+				sum_south += map->isKnowWall(x, y - 1, (Dir)i);
+				sum_M_south -= map->isMKnowWall(x, y - 1, (Dir)i);
 			}
-			isKnowMap[x] = (sum_south >= 3) ? isKnowMap[x] | (1 << (y - 1)) : isKnowMap[x];
+			isKnowMap[x] = (sum_south >= 3 || sum_M_south == 4 || (sum_south + sum_M_south) == 4) ? isKnowMap[x] | (1 << (y - 1)) : isKnowMap[x];
 		}
 		if (y != 15)
 		{
 			int sum_north = 0;
+			int sum_M_north = 4;
 			for (int i = 0; i < 4; i++)
 			{
-				sum_north+=map->isKnowWall(x, y + 1, (Dir)i);
-				sum_north = (map->isMKnowWall(x, y + 1, (Dir)i) == 0) ? sum_north + 1 : sum_north;
+				sum_north += map->isKnowWall(x, y + 1, (Dir)i);
+				sum_M_north -= map->isMKnowWall(x, y + 1, (Dir)i);
 			}
-			isKnowMap[x] = (sum_north >= 3) ? isKnowMap[x] | (1 << (y + 1)) : isKnowMap[x];
+			isKnowMap[x] = (sum_north >= 3 || sum_M_north == 4 || (sum_north + sum_M_north) == 4) ? isKnowMap[x] | (1 << (y + 1)) : isKnowMap[x];
 		}
 	}
 
@@ -201,6 +205,17 @@ namespace Algorizm
 		}
 	}
 
+	void Algorizm::MakePotential::InitSerch_Dist(void)//歩数マップの初期化を行う関数
+	{
+		for (int x = 0; x < 16; x++)
+		{
+			for (int y = 0; y < 16; y++)
+			{
+				DistMap[x][y] = 999;
+			}
+		}
+	}
+
 	void Algorizm::MakePotential::search_dijkstra(int goal_size,POS* goal_pos)
 	{
 		map->MapDecide();//壁情報の更新
@@ -208,7 +223,7 @@ namespace Algorizm
 		int now_y;
 		map->RetPos(&now_x, &now_y);
 		updata_knowmap(now_x, now_y);//既知区間の更新
-		//Init_Dist();//歩数マップの初期化
+		InitSerch_Dist();//歩数マップの初期化
 		init_search_node();//ノードの初期化
 
 		POS bupos = { 0,0 };//新たに確定したノードの座標
@@ -572,5 +587,15 @@ namespace Algorizm
 				}
 			}
 		}
+	}
+
+	int Algorizm::MakePotential::RetKnowMap(int x, int y)//ある位置x,yが既知かどうかを返す関数
+	{
+		return ((isKnowMap[x] & (1 << y)) >> y);
+	}
+
+	void Algorizm::MakePotential::SetKnowMap(int x, int y)//ある位置x,yの既知区画を変更する関数
+	{
+		isKnowMap[x] = (isKnowMap[x] | (1 << y));
 	}
 }
