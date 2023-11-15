@@ -396,10 +396,22 @@ namespace Algorizm
 				heap.push_heap(saitan_node_column[bupos.x][bupos.y]);//スタートノードをキューにプッシュする
 			}
 
+			saitan_node_column[bupos.x-1][bupos.y].cost = 0;//スタートノードのコストを0にする
+			if (saitan_node_column[bupos.x-1][bupos.y].isNoWall)
+			{
+				heap.push_heap(saitan_node_column[bupos.x-1][bupos.y]);//スタートノードをキューにプッシュする
+			}
+
 			saitan_node_row[bupos.y][bupos.x].cost = 0;//スタートノードのコストを0にする
 			if (saitan_node_row[bupos.y][bupos.x].isNoWall)
 			{
 				heap.push_heap(saitan_node_row[bupos.y][bupos.x]);//スタートノードをキューにプッシュする
+			}
+
+			saitan_node_row[bupos.y-1][bupos.x].cost = 0;//スタートノードのコストを0にする
+			if (saitan_node_row[bupos.y-1][bupos.x].isNoWall)
+			{
+				heap.push_heap(saitan_node_row[bupos.y-1][bupos.x]);//スタートノードをキューにプッシュする
 			}
 		}
 		bool isRow = false;

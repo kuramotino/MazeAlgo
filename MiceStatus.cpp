@@ -74,4 +74,11 @@ namespace Algorizm
 		*y = PosY;
 		*dir = MiceVec;
 	}
+
+	void MiceStatus::SetPos(int x, int y, enum Dir dir)
+	{
+		PosX = x;
+		PosY = y;
+		MiceVec = dir;
+	}
 }

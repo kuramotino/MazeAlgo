@@ -7,14 +7,14 @@ namespace Algorizm
 
 	typedef struct Search_Node
 	{
-		int cost;
-		bool isConfirm;
-		int pos_x;
-		int pos_y;
-		Search_Node* pre_node;
-		saitan_node_dir node_dir;
-		bool isNoWall;
-		bool isRow;
+		int cost;//ノードのコスト
+		bool isConfirm;//ノードが確定しているかどうか
+		int pos_x;//ノードの位置x
+		int pos_y;//ノードの位置y
+		Search_Node* pre_node;//自身から最短経路に繋がっているノードへのポインタ
+		saitan_node_dir node_dir;//最短経路に繋がるノードへの方位
+		bool isNoWall;//壁があるかどうか(trueでノードがふさがれていない，falseで壁にふさがれている)
+		bool isRow;//Rowノードかどうか(trueでrow，falseでcolumn)
 	}NODE;
 
 	class HeapQueue

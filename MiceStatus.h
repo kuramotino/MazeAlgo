@@ -16,5 +16,6 @@ namespace Algorizm
 		void PosDecide(void);//ˆÊ’uŒˆ‚ßŠÖ”
 		bool GoalCheck(int goal_size, int x, int y);//ƒS[ƒ‹‚µ‚½‚©‚Ç‚¤‚©‚ğ”»’è‚·‚éŠÖ”
 		void RetPos(int* x, int* y, enum Dir* dir);
+		void SetPos(int x, int y, enum Dir dir);
 	};
 }

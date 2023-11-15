@@ -396,6 +396,129 @@ namespace Algorizm
 		}
 	}
 
+	enum Vec  Algorizm::Planning::search_unknown_dijkstra(int goal_size, POS* goal_pos)//最短経路上の未知区間を探しに行く探索で次の行動を返す関数
+	{
+		my_map->MapDecide();//壁情報の更新のみ先に行う
+
+		//if (isTentativeTansakuEnd)//仮のゴールにたどり着いたら，次のゴールを設定する
+		//{
+			//goal座標を設定する
+			search_unknown_set_goal_pos(goal_size, goal_pos);
+			//isTentativeTansakuEnd = false;
+		//}
+
+		int pre_x;
+		int pre_y;
+		enum Dir pre_vec;
+		my_status->RetPos(&pre_x, &pre_y, &pre_vec);
+
+		enum Vec ret_num;
+		my_potential->search_dijkstra(1, &Tentative_goal_pos);//歩数マップ，壁情報の更新
+
+		int now_pos_dist = my_potential->RetDist(pre_x, pre_y);
+
+		if (now_pos_dist == 999)//goalが塞がれていたらgoalを変更する
+		{
+			BlockIsopos();
+			search_unknown_set_goal_pos(goal_size, goal_pos);
+			ret_num = Back;
+			UpDataVecPos(ret_num);
+		}
+		else
+		{
+			NODE node;
+			NODE pre_node;
+			int pre_x, pre_y;
+			int bux;
+			int buy;
+			enum Dir bu_vec;
+			my_status->RetPos(&bux, &buy, &bu_vec);
+			node = my_potential->ret_search_node(bux, buy);
+			pre_node = *(node.pre_node);
+			pre_x = pre_node.pos_x;
+			pre_y = pre_node.pos_y;
+
+
+			//1ある位置(x,y)につながっているノードの座標から次に進む向きを決定
+			if (bu_vec == North)
+			{
+				ret_num = (buy + 1 == pre_y) ? Front : ((bux + 1 == pre_x) ? Right : ((bux - 1 == pre_x) ? Left : Back));
+			}
+			else if (bu_vec == East)
+			{
+				ret_num = (bux + 1 == pre_x) ? Front : ((buy - 1 == pre_y) ? Right : ((buy + 1 == pre_y) ? Left : Back));
+			}
+			else if (bu_vec == South)
+			{
+				ret_num = (buy - 1 == pre_y) ? Front : ((bux - 1 == pre_x) ? Right : ((bux + 1 == pre_x) ? Left : Back));
+			}
+			else if (bu_vec == West)
+			{
+				ret_num = (bux - 1 == pre_x) ? Front : ((buy + 1 == pre_y) ? Right : ((buy - 1 == pre_y) ? Left : Back));
+			}
+
+			UpDataVecPos(ret_num);//次に進む向きから位置と向きを更新
+
+			for (int i = 0; i < 1; i++)//ゴール座標に到達していたら探索終了
+			{
+				isTentativeTansakuEnd = my_status->GoalCheck(1, Tentative_goal_pos.x, Tentative_goal_pos.y);
+				if (isTentativeTansakuEnd)
+				{
+					if (Tentative_goal_pos.x == 0 && Tentative_goal_pos.y == 0)
+					{
+						isTansakuEnd = true;
+					}
+					my_potential->SetKnowMap(Tentative_goal_pos.x, Tentative_goal_pos.y);//位置x,yを既知区画にする
+					break;
+				}
+			}
+		}
+
+		return ret_num;
+	}
+
+	void Algorizm::Planning::search_unknown_set_goal_pos(int goal_size, POS* goal_pos)//最短経路の未知区間を探す関数
+	{
+		int buf_x = 0;
+		int buf_y = 0;
+		enum Dir buf_MiceVec = North;
+		my_status->RetPos(&buf_x, &buf_y, &buf_MiceVec);//マウスの状態をバックアップする
+
+		MiceInit();//マウスの状態を初期化
+
+		bool isGoal = false;
+		pass_unknown_pos = { 255,255 };
+
+		while (1)
+		{
+			int bu_pass = saitan_dijkstra(goal_size, goal_pos);//次の行動を得る
+
+			my_status->RetPos(&x, &y, &MiceVec);
+
+			if (my_potential->RetKnowMap(x, y) == 0)//位置x,yが未知区間なら
+			{
+				pass_unknown_pos = { x,y };
+			}
+
+			isGoal = RetIsSimEnd();
+			if (isGoal)
+			{
+				break;
+			}
+		}
+
+		my_status->SetPos(buf_x, buf_y, buf_MiceVec);//マウスの状態をもとに戻す
+
+		if (pass_unknown_pos.x == 255 || pass_unknown_pos.y == 255)//1最短経路上に未知区間が見つからないならスタート地点をゴールにする
+		{
+			Tentative_goal_pos = { 0,0 };
+		}
+		else
+		{
+			Tentative_goal_pos = pass_unknown_pos;//1最短経路上の未知区間をゴールにする
+		}
+	}
+
 	void Algorizm::Planning::BlockIsopos()//孤立区画をつぶす関数
 	{
 		for (int i = 0; i < 16; i++)

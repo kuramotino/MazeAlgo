@@ -1,13 +1,4 @@
-﻿  DebugView.cpp
-  InitAlgo.cpp
-  IssueCommand.cpp
-  MakePotential.cpp
-  MiceStatus.cpp
-  Pass_Generator.cpp
-  Planning.cpp
-C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.cpp(416,7): warning C4101: 'pre_x': ローカル変数は 1 度も使われていません。
-C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.cpp(416,14): warning C4101: 'pre_y': ローカル変数は 1 度も使われていません。
-  ResetObj.cpp
-  main.cpp
-  コードを生成中...
+﻿  Planning.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.cpp(541,7): warning C4101: 'pre_x': ローカル変数は 1 度も使われていません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.cpp(541,14): warning C4101: 'pre_y': ローカル変数は 1 度も使われていません。
   MazeAlgo.vcxproj -> C:\Users\小峰龍之介\source\repos\MazeAlgo\Debug\MazeAlgo.exe

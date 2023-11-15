@@ -25,6 +25,7 @@ namespace Algorizm
 		bool isSimEnd = false;//経路導出が終了しているか
 		bool isTentativeTansakuEnd = true;//仮のゴールに着いたかどうか
 		POS Tentative_goal_pos = { 255,255 };//一時的なゴール座標
+		POS pass_unknown_pos = { 255,255 };//パス上の未知区画
 		MiceStatus* my_status;
 		MakePotential* my_potential;
 		Map* my_map;
@@ -34,6 +35,8 @@ namespace Algorizm
 		enum Vec s_dijkstra(int goal_size, POS* goal_pos);//ダイクストラ法に則って次の行動を返す関数
 		enum Vec z_dijkstra();//全面探索を行う関数
 		void set_goal_pos();//goalを設定する関数
+		enum Vec search_unknown_dijkstra(int goal_size, POS* goal_pos);//最短経路上の未知区間を探しに行く探索で次の行動を返す関数
+		void search_unknown_set_goal_pos(int goal_size, POS* goal_pos);//最短経路の未知区間を探す関数
 		void BlockIsopos();//孤立区画をつぶす関数
 		int saitan_dijkstra(int goal_size, POS* goal_pos);//斜めのダイクストラ法に則って次の行動を返す関数
 		void SetObj(MiceStatus* status, MakePotential* potential, Map* map);//必要なオブジェクトをセットする関数
