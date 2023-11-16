@@ -26,7 +26,7 @@ namespace Algorizm
 
 		while (1)
 		{
-			int bu_pass = my_plan->saitan_dijkstra(goal_size, goal_pos);//ŽŸ‚Ìs“®‚ð“¾‚é
+			int bu_pass = my_plan->saitan_dijkstra(goal_size, goal_pos, true);//ŽŸ‚Ìs“®‚ð“¾‚é
 
 			if (bu_pass > 1)
 			{

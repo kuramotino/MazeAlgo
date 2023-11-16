@@ -400,6 +400,12 @@ namespace Algorizm
 	{
 		my_map->MapDecide();//壁情報の更新のみ先に行う
 
+		int pre_x;
+		int pre_y;
+		enum Dir pre_vec;
+		my_status->RetPos(&pre_x, &pre_y, &pre_vec);
+		my_potential->updata_knowmap(pre_x, pre_y);//既知区間の更新
+
 		//if (isTentativeTansakuEnd)//仮のゴールにたどり着いたら，次のゴールを設定する
 		//{
 			//goal座標を設定する
@@ -407,17 +413,13 @@ namespace Algorizm
 			//isTentativeTansakuEnd = false;
 		//}
 
-		int pre_x;
-		int pre_y;
-		enum Dir pre_vec;
-		my_status->RetPos(&pre_x, &pre_y, &pre_vec);
-
 		enum Vec ret_num;
-		my_potential->search_dijkstra(1, &Tentative_goal_pos);//歩数マップ，壁情報の更新
+		//my_potential->search_dijkstra(1, &Tentative_goal_pos);//歩数マップ，壁情報の更新
+		my_potential->DecideDist(1, &Tentative_goal_pos);//歩数マップの更新
 
 		int now_pos_dist = my_potential->RetDist(pre_x, pre_y);
 
-		if (now_pos_dist == 999)//goalが塞がれていたらgoalを変更する
+		if (now_pos_dist == 255)//goalが塞がれていたらgoalを変更する
 		{
 			BlockIsopos();
 			search_unknown_set_goal_pos(goal_size, goal_pos);
@@ -426,36 +428,148 @@ namespace Algorizm
 		}
 		else
 		{
-			NODE node;
-			NODE pre_node;
-			int pre_x, pre_y;
-			int bux;
-			int buy;
-			enum Dir bu_vec;
-			my_status->RetPos(&bux, &buy, &bu_vec);
-			node = my_potential->ret_search_node(bux, buy);
-			pre_node = *(node.pre_node);
-			pre_x = pre_node.pos_x;
-			pre_y = pre_node.pos_y;
+			my_status->RetPos(&x, &y, &MiceVec);
 
+			front_dist = 255;
+			back_dist = 255;
+			left_dist = 255;
+			right_dist = 255;
 
-			//1ある位置(x,y)につながっているノードの座標から次に進む向きを決定
-			if (bu_vec == North)
+			//1ある位置(x,y)にいるときの前後左右の歩数を取得
+			if (MiceVec == North)
 			{
-				ret_num = (buy + 1 == pre_y) ? Front : ((bux + 1 == pre_x) ? Right : ((bux - 1 == pre_x) ? Left : Back));
+				if (y != 15)
+				{
+					front_dist = my_potential->RetDist(x, y + 1);
+				}
+				if (y != 0)
+				{
+					back_dist = my_potential->RetDist(x, y - 1);
+				}
+				if (x != 15)
+				{
+					right_dist = my_potential->RetDist(x + 1, y);
+				}
+				if (x != 0)
+				{
+					left_dist = my_potential->RetDist(x - 1, y);
+				}
 			}
-			else if (bu_vec == East)
+			else if (MiceVec == East)
 			{
-				ret_num = (bux + 1 == pre_x) ? Front : ((buy - 1 == pre_y) ? Right : ((buy + 1 == pre_y) ? Left : Back));
+				if (x != 15)
+				{
+					front_dist = my_potential->RetDist(x + 1, y);
+				}
+				if (x != 0)
+				{
+					back_dist = my_potential->RetDist(x - 1, y);
+				}
+				if (y != 0)
+				{
+					right_dist = my_potential->RetDist(x, y - 1);
+				}
+				if (y != 15)
+				{
+					left_dist = my_potential->RetDist(x, y + 1);
+				}
 			}
-			else if (bu_vec == South)
+			else if (MiceVec == South)
 			{
-				ret_num = (buy - 1 == pre_y) ? Front : ((bux - 1 == pre_x) ? Right : ((bux + 1 == pre_x) ? Left : Back));
+				if (y != 0)
+				{
+					front_dist = my_potential->RetDist(x, y - 1);
+				}
+				if (y != 15)
+				{
+					back_dist = my_potential->RetDist(x, y + 1);
+				}
+				if (x != 0)
+				{
+					right_dist = my_potential->RetDist(x - 1, y);
+				}
+				if (x != 15)
+				{
+					left_dist = my_potential->RetDist(x + 1, y);
+				}
 			}
-			else if (bu_vec == West)
+			else if (MiceVec == West)
 			{
-				ret_num = (bux - 1 == pre_x) ? Front : ((buy + 1 == pre_y) ? Right : ((buy - 1 == pre_y) ? Left : Back));
+				if (x != 0)
+				{
+					front_dist = my_potential->RetDist(x - 1, y);
+				}
+				if (x != 15)
+				{
+					back_dist = my_potential->RetDist(x + 1, y);
+				}
+				if (y != 15)
+				{
+					right_dist = my_potential->RetDist(x, y + 1);
+				}
+				if (y != 0)
+				{
+					left_dist = my_potential->RetDist(x, y - 1);
+				}
 			}
+
+			//2最小の歩数を決定
+
+			//3前→右→左→後
+			int sort[4];
+			sort[0] = front_dist;
+			sort[1] = right_dist;
+			sort[2] = left_dist;
+			sort[3] = back_dist;
+
+			my_map->isLFRKnowWall(&isLWall, &isFWall, &isRWall, x, y, MiceVec);
+
+			//4壁に阻まれた歩数を除外
+			for (int i = 0; i < 4; i++)
+			{
+				switch (i)
+				{
+				case 0:
+					if (isFWall != 0)
+					{
+						sort[i] = 255;
+					}
+					break;
+
+				case 1:
+					if (isRWall != 0)
+					{
+						sort[i] = 255;
+					}
+					break;
+
+				case 2:
+					if (isLWall != 0)
+					{
+						sort[i] = 255;
+					}
+					break;
+
+				case 3:
+
+					break;
+				}
+			}
+
+			//5最小値を決定
+			num = 0;
+			min = 255;
+			for (int i = 0; i < 4; i++)
+			{
+				if (sort[i] < min)
+				{
+					min = sort[i];
+					num = i;
+				}
+			}
+
+			//6setnumに変更
+			ret_num = (num == 0) ? Front : ((num == 1) ? Right : ((num == 2) ? Left : Back));
 
 			UpDataVecPos(ret_num);//次に進む向きから位置と向きを更新
 
@@ -488,10 +602,11 @@ namespace Algorizm
 
 		bool isGoal = false;
 		pass_unknown_pos = { 255,255 };
+		my_potential->saitan_dijkstra(goal_size, goal_pos);
 
 		while (1)
 		{
-			int bu_pass = saitan_dijkstra(goal_size, goal_pos);//次の行動を得る
+			int bu_pass = saitan_dijkstra(goal_size, goal_pos, false);//次の行動を得る
 
 			my_status->RetPos(&x, &y, &MiceVec);
 
@@ -533,11 +648,14 @@ namespace Algorizm
 		}
 	}
 
-	int Algorizm::Planning::saitan_dijkstra(int goal_size, POS* goal_pos)
+	int Algorizm::Planning::saitan_dijkstra(int goal_size, POS* goal_pos, bool isMakePotential)
 	{
 		NODE node = { 999,true,0,0,0,NN,false,false };
 		int pre_x, pre_y;
-		my_potential->saitan_dijkstra(goal_size, goal_pos);//現在のノードを更新する
+		if (isMakePotential)
+		{
+			my_potential->saitan_dijkstra(goal_size, goal_pos);//現在のノードを更新する
+		}
 		my_status->RetPos(&x, &y, &MiceVec);
 		
 		if (MiceVec == North)

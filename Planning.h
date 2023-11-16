@@ -38,7 +38,7 @@ namespace Algorizm
 		enum Vec search_unknown_dijkstra(int goal_size, POS* goal_pos);//最短経路上の未知区間を探しに行く探索で次の行動を返す関数
 		void search_unknown_set_goal_pos(int goal_size, POS* goal_pos);//最短経路の未知区間を探す関数
 		void BlockIsopos();//孤立区画をつぶす関数
-		int saitan_dijkstra(int goal_size, POS* goal_pos);//斜めのダイクストラ法に則って次の行動を返す関数
+		int saitan_dijkstra(int goal_size, POS* goal_pos, bool isMakePotential);//斜めのダイクストラ法に則って次の行動を返す関数
 		void SetObj(MiceStatus* status, MakePotential* potential, Map* map);//必要なオブジェクトをセットする関数
 		void UpDataVecPos(enum Vec vec);//次に進む向き(左，右，前，後)から，次の位置，向きを更新する関数
 		void SetReturn(bool isreturn);//戻り探索フラグをセットする関数
