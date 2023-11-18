@@ -1,37 +1,45 @@
-#pragma once
+ï»¿#pragma once
 #define MAX_QUEUE_NUM 50
+#define MAX_STACK_NUM 255
 #include "Map.h"
 #include "HeapQueue.h"
 
 namespace Algorizm
 {
 
-	//pos_queue\‘¢‘Ì
+	//pos_queueæ§‹é€ ä½“
 	typedef struct POS_QUEUE
 	{
 		int x;
 		int y;
 	}POS;
 
-	//queue\‘¢‘Ì
+	//queueæ§‹é€ ä½“
 	typedef struct QUEUE
 	{
-		int head;//ƒf[ƒ^‚ÌÅ‘O—ñ
-		int tail;//ƒf[ƒ^‚ÌÅŒã”ö
-		POS pos[MAX_QUEUE_NUM];//push‚³‚ê‚Ä‚¢‚éƒf[ƒ^
+		int head;//ãƒ‡ãƒ¼ã‚¿ã®æœ€å‰åˆ—
+		int tail;//ãƒ‡ãƒ¼ã‚¿ã®æœ€å¾Œå°¾
+		POS pos[MAX_QUEUE_NUM];//pushã•ã‚Œã¦ã„ã‚‹ãƒ‡ãƒ¼ã‚¿
 	}QUEUE_T;
+
+	//stack
+	typedef struct STACK
+	{
+		int top;//ã‚¹ã‚¿ãƒƒã‚¯ã®å…ˆé ­
+		POS pos[MAX_STACK_NUM];//pushï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½fï¿½[ï¿½^
+	}STACK_T;
 
 	class MakePotential
 	{
 		int DistMap[16][16] = {255};
-		int isKnowMap[16] = {0};//‚ ‚é‹æ‰æ‚ªŠù’m‚ª‚Ç‚¤‚©C(0‚Ì‚Æ‚«–¢’mC1‚Ì‚Æ‚«Šù’m)
-		NODE search_node[16][16];//’Tõ—p‚Ìƒm[ƒh
-		HeapQueue heap;//’Tõ—p‚Ìƒq[ƒv
-		int search_edge_miti = 1;//–¢’m‹æŠÔ‚ÌƒGƒbƒW‚Ìd‚İ
-		int search_edge_kiti = 5;//Šù’m‹æŠÔ‚ÌƒGƒbƒW‚Ìd‚İ
-		NODE saitan_node_column[15][16];//Å’Z—p‚Ìƒm[ƒh
-		NODE saitan_node_row[15][16];//Å’Z—p‚Ìƒm[ƒh
-		NODE no_conect_node;//Œq‚ª‚ç‚È‚¢ƒm[ƒh
+		int isKnowMap[16] = {0};//ã‚ã‚‹åŒºç”»ãŒæ—¢çŸ¥ãŒã©ã†ã‹ï¼Œ(0ã®ã¨ãæœªçŸ¥ï¼Œ1ã®ã¨ãæ—¢çŸ¥)
+		NODE search_node[16][16];//æ¢ç´¢ç”¨ã®ãƒãƒ¼ãƒ‰
+		HeapQueue heap;//æ¢ç´¢ç”¨ã®ãƒ’ãƒ¼ãƒ—
+		int search_edge_miti = 1;//æœªçŸ¥åŒºé–“ã®ã‚¨ãƒƒã‚¸ã®é‡ã¿
+		int search_edge_kiti = 5;//æ—¢çŸ¥åŒºé–“ã®ã‚¨ãƒƒã‚¸ã®é‡ã¿
+		NODE saitan_node_column[15][16];//æœ€çŸ­ç”¨ã®ãƒãƒ¼ãƒ‰
+		NODE saitan_node_row[15][16];//æœ€çŸ­ç”¨ã®ãƒãƒ¼ãƒ‰
+		NODE no_conect_node;//ç¹‹ãŒã‚‰ãªã„ãƒãƒ¼ãƒ‰
 		int strate_edge_cost = 7;//7
 		int diagonal_edge_cost = 5;//5
 		int continue_st_edge_cost = 3;//3
@@ -39,26 +47,29 @@ namespace Algorizm
 		Map* map;
 
 	public:
-		void initQueue(QUEUE_T* queue);//queue‚Ì‰Šú‰»
-		void pushQueue_walk(QUEUE_T* queue, POS input);//queue‚Ìpush
-		POS popQueue_walk(QUEUE_T* queue);//queue‚Ìpop
-		void Init_Dist(void);//•à”ƒ}ƒbƒv‚Ì‰Šú‰»‚ğs‚¤ŠÖ”
-		void DecideDist(int goal_size,POS* goal_pos);//•à”ƒ}ƒbƒv‚ÌXV‚ğs‚¤ŠÖ”
-		void InitSerch_Dist(void);//•à”ƒ}ƒbƒv‚Ì‰Šú‰»‚ğs‚¤ŠÖ”
-		void search_dijkstra(int goal_size, POS* goal_pos);//’Tõƒ_ƒCƒNƒXƒgƒ‰–@‚Ì•à”ƒ}ƒbƒvXV‚ğs‚¤ŠÖ”
-		int RetDist(int x, int y);//•à”ƒ}ƒbƒv‚Ì’l‚ğ•Ô‚·ŠÖ”
-		void SetMap(Map* bu_map);//ƒ}ƒbƒv‚ÌƒZƒbƒg‚ğs‚¤ŠÖ”
+		void initQueue(QUEUE_T* queue);//queueã®åˆæœŸåŒ–
+		void pushQueue_walk(QUEUE_T* queue, POS input);//queueã®push
+		POS popQueue_walk(QUEUE_T* queue);//queueã®pop
+		void initStack(STACK_T* stack);
+		void pushStack_walk(STACK_T* stack, POS input);
+		POS popStack_walk(STACK_T* stack);
+		void Init_Dist(void);//æ­©æ•°ãƒãƒƒãƒ—ã®åˆæœŸåŒ–ã‚’è¡Œã†é–¢æ•°
+		void DecideDist(int goal_size,POS* goal_pos);//æ­©æ•°ãƒãƒƒãƒ—ã®æ›´æ–°ã‚’è¡Œã†é–¢æ•°
+		void InitSerch_Dist(void);//æ­©æ•°ãƒãƒƒãƒ—ã®åˆæœŸåŒ–ã‚’è¡Œã†é–¢æ•°
+		void search_dijkstra(int goal_size, POS* goal_pos);//æ¢ç´¢ãƒ€ã‚¤ã‚¯ã‚¹ãƒˆãƒ©æ³•ã®æ­©æ•°ãƒãƒƒãƒ—æ›´æ–°ã‚’è¡Œã†é–¢æ•°
+		int RetDist(int x, int y);//æ­©æ•°ãƒãƒƒãƒ—ã®å€¤ã‚’è¿”ã™é–¢æ•°
+		void SetMap(Map* bu_map);//ãƒãƒƒãƒ—ã®ã‚»ãƒƒãƒˆã‚’è¡Œã†é–¢æ•°
 		void updata_knowmap(int x, int y);
 		void init_knowmap();
 		void init_search_node();
-		NODE ret_search_node(int x, int y);//‚ ‚éˆÊ’ux,y‚É‚¨‚¯‚éƒm[ƒh‚ğ•Ô‚·ŠÖ”
+		NODE ret_search_node(int x, int y);//ã‚ã‚‹ä½ç½®x,yã«ãŠã‘ã‚‹ãƒãƒ¼ãƒ‰ã‚’è¿”ã™é–¢æ•°
 		void init_saitan_node();
-		void saitan_dijkstra(int goal_size, POS* goal_pos);//Å’Zƒ_ƒCƒNƒXƒgƒ‰–@‚Ì•à”ƒ}ƒbƒvXV‚ğs‚¤ŠÖ”
-		NODE* RetSaitanNode(int x, int y, bool isRow);//‚ ‚éx,y,row‚©column‚©w’è‚µ‚½‚Æ‚«‚Ìƒm[ƒh‚ğ•Ô‚·ŠÖ”
-		int CalEdgeCost(NODE* prenode,NODE* nownode);//‚ ‚éƒm[ƒh‚ÉÚ‘±‚³‚ê‚½ƒGƒbƒW‚ÌƒRƒXƒg‚ğŒvZ‚·‚éŠÖ”
-		void SaitanPushNode(NODE* node, NODE* new_node, int edge_cost, saitan_node_dir dir);//‚ ‚éƒm[ƒh‚ğƒvƒbƒVƒ…‚·‚éŠÖ”
-		void BlockKnowWall();//–¢’m‹æŠÔ‚Ì•Ç‚ğ‚Ó‚³‚®ŠÖ”
-		int RetKnowMap(int x, int y);//‚ ‚éˆÊ’ux,y‚ªŠù’m‚©‚Ç‚¤‚©‚ğ•Ô‚·ŠÖ”
-		void SetKnowMap(int x, int y);//‚ ‚éˆÊ’ux,y‚ÌŠù’m‹æ‰æ‚ğ•ÏX‚·‚éŠÖ”
+		void saitan_dijkstra(int goal_size, POS* goal_pos);//æœ€çŸ­ãƒ€ã‚¤ã‚¯ã‚¹ãƒˆãƒ©æ³•ã®æ­©æ•°ãƒãƒƒãƒ—æ›´æ–°ã‚’è¡Œã†é–¢æ•°
+		NODE* RetSaitanNode(int x, int y, bool isRow);//ã‚ã‚‹x,y,rowã‹columnã‹æŒ‡å®šã—ãŸã¨ãã®ãƒãƒ¼ãƒ‰ã‚’è¿”ã™é–¢æ•°
+		int CalEdgeCost(NODE* prenode,NODE* nownode);//ã‚ã‚‹ãƒãƒ¼ãƒ‰ã«æ¥ç¶šã•ã‚ŒãŸã‚¨ãƒƒã‚¸ã®ã‚³ã‚¹ãƒˆã‚’è¨ˆç®—ã™ã‚‹é–¢æ•°
+		void SaitanPushNode(NODE* node, NODE* new_node, int edge_cost, saitan_node_dir dir);//ã‚ã‚‹ãƒãƒ¼ãƒ‰ã‚’ãƒ—ãƒƒã‚·ãƒ¥ã™ã‚‹é–¢æ•°
+		void BlockKnowWall();//æœªçŸ¥åŒºé–“ã®å£ã‚’ãµã•ãé–¢æ•°
+		int RetKnowMap(int x, int y);//ã‚ã‚‹ä½ç½®x,yãŒæ—¢çŸ¥ã‹ã©ã†ã‹ã‚’è¿”ã™é–¢æ•°
+		void SetKnowMap(int x, int y);//ã‚ã‚‹ä½ç½®x,yã®æ—¢çŸ¥åŒºç”»ã‚’å¤‰æ›´ã™ã‚‹é–¢æ•°
 	};
 }

@@ -44,6 +44,7 @@ namespace Algorizm
 
 			case Back:
 				my_micemgr->SetAct(Right_sen);
+				my_plan->search_unknown_set_goal_pos(4, goal_pos);//back’†‚Éƒ_ƒCƒNƒXƒgƒ‰–@‚ÅÅ’ZŒo˜Hã‚Ì–¢’m‹æŠÔ‚ğ’T‚·
 				break;
 			}
 			isStop = my_plan->RetTansakuEnd();

@@ -165,6 +165,7 @@ namespace Algorizm
 				isReturn = my_status->GoalCheck(goal_size, (goal_pos + i)->x, (goal_pos + i)->y);
 				if (isReturn)
 				{
+					isEndAdatiSearch = true;
 					my_potential->SetKnowMap((goal_pos + i)->x, (goal_pos + i)->y);//位置x,yを既知区画にする
 					break;
 				}
@@ -403,17 +404,27 @@ namespace Algorizm
 		int pre_x;
 		int pre_y;
 		enum Dir pre_vec;
+		enum Vec ret_num;
 		my_status->RetPos(&pre_x, &pre_y, &pre_vec);
 		my_potential->updata_knowmap(pre_x, pre_y);//既知区間の更新
 
-		//if (isTentativeTansakuEnd)//仮のゴールにたどり着いたら，次のゴールを設定する
-		//{
-			//goal座標を設定する
-			search_unknown_set_goal_pos(goal_size, goal_pos);
-			//isTentativeTansakuEnd = false;
-		//}
+		if (isEndAdatiSearch)
+		{
+			isEndAdatiSearch = false;
+			ret_num = Back;
+			UpDataVecPos(ret_num);
+			return ret_num;
+		}
 
-		enum Vec ret_num;
+		if (isTentativeTansakuEnd)//仮のゴールにたどり着いたら，次のゴールを設定する
+		{
+			//goal座標を設定する
+			//search_unknown_set_goal_pos(goal_size, goal_pos);
+			search_unknown_pop_goal_pos();
+			isTentativeTansakuEnd = false;
+		}
+
+		
 		//my_potential->search_dijkstra(1, &Tentative_goal_pos);//歩数マップ，壁情報の更新
 		my_potential->DecideDist(1, &Tentative_goal_pos);//歩数マップの更新
 
@@ -422,7 +433,6 @@ namespace Algorizm
 		if (now_pos_dist == 255)//goalが塞がれていたらgoalを変更する
 		{
 			BlockIsopos();
-			search_unknown_set_goal_pos(goal_size, goal_pos);
 			ret_num = Back;
 			UpDataVecPos(ret_num);
 		}
@@ -601,18 +611,22 @@ namespace Algorizm
 		MiceInit();//マウスの状態を初期化
 
 		bool isGoal = false;
+		int bu_pass = 0;
 		pass_unknown_pos = { 255,255 };
 		my_potential->saitan_dijkstra(goal_size, goal_pos);
 
+		my_potential->initStack(&stack);//スタックの初期化
+
 		while (1)
 		{
-			int bu_pass = saitan_dijkstra(goal_size, goal_pos, false);//次の行動を得る
+			bu_pass = saitan_dijkstra(goal_size, goal_pos, false);//次の行動を得る
 
 			my_status->RetPos(&x, &y, &MiceVec);
 
 			if (my_potential->RetKnowMap(x, y) == 0)//位置x,yが未知区間なら
 			{
 				pass_unknown_pos = { x,y };
+				my_potential->pushStack_walk(&stack, pass_unknown_pos);//未知区間をスタックにpushする
 			}
 
 			isGoal = RetIsSimEnd();
@@ -634,13 +648,32 @@ namespace Algorizm
 		}
 	}
 
+	void Algorizm::Planning::search_unknown_pop_goal_pos()//スタックから次のゴールをpopする関数
+	{
+		while (1)
+		{
+			Tentative_goal_pos = my_potential->popStack_walk(&stack);
+
+			if (Tentative_goal_pos.x == 65535)//1スタックが空の場合
+			{
+				Tentative_goal_pos = { 0,0 };
+				break;
+			}
+
+			if (my_potential->RetKnowMap(Tentative_goal_pos.x, Tentative_goal_pos.y) == 0)//位置x,yが未知区間なら
+			{
+				break;
+			}
+		}
+	}
+
 	void Algorizm::Planning::BlockIsopos()//孤立区画をつぶす関数
 	{
 		for (int i = 0; i < 16; i++)
 		{
 			for (int j = 0; j < 16; j++)
 			{
-				if (my_potential->RetDist(i, j) != 999)
+				if (my_potential->RetDist(i, j) != 255)
 				{
 					my_potential->SetKnowMap(i, j);//位置i,jを既知区画にする
 				}

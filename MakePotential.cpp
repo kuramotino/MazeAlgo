@@ -50,6 +50,32 @@ namespace Algorizm
 		return ret;
 	}
 
+	void Algorizm::MakePotential::initStack(STACK_T* stack)
+	{
+		stack->top = -1;
+	}
+	void Algorizm::MakePotential::pushStack_walk(STACK_T* stack, POS input)
+	{
+		stack->top += 1;
+		if (stack->top == MAX_STACK_NUM)
+		{
+			stack->top -= 1;
+		}
+		stack->pos[stack->top] = input;
+	}
+	POS Algorizm::MakePotential::popStack_walk(STACK_T* stack)
+	{
+		POS ret = { 0,0 };
+		if (stack->top == -1)
+		{
+			ret.x = 65535;
+			return ret;
+		}
+		ret = stack->pos[stack->top];
+		stack->top -= 1;
+		return ret;
+	}
+
 	void Algorizm::MakePotential::Init_Dist(void)//歩数マップの初期化を行う関数
 	{
 		for (int x = 0; x < 16; x++)
@@ -396,10 +422,13 @@ namespace Algorizm
 				heap.push_heap(saitan_node_column[bupos.x][bupos.y]);//スタートノードをキューにプッシュする
 			}
 
-			saitan_node_column[bupos.x-1][bupos.y].cost = 0;//スタートノードのコストを0にする
-			if (saitan_node_column[bupos.x-1][bupos.y].isNoWall)
+			if (bupos.x != 0)
 			{
-				heap.push_heap(saitan_node_column[bupos.x-1][bupos.y]);//スタートノードをキューにプッシュする
+				saitan_node_column[bupos.x - 1][bupos.y].cost = 0;//スタートノードのコストを0にする
+				if (saitan_node_column[bupos.x - 1][bupos.y].isNoWall)
+				{
+					heap.push_heap(saitan_node_column[bupos.x - 1][bupos.y]);//スタートノードをキューにプッシュする
+				}
 			}
 
 			saitan_node_row[bupos.y][bupos.x].cost = 0;//スタートノードのコストを0にする
@@ -408,10 +437,13 @@ namespace Algorizm
 				heap.push_heap(saitan_node_row[bupos.y][bupos.x]);//スタートノードをキューにプッシュする
 			}
 
-			saitan_node_row[bupos.y-1][bupos.x].cost = 0;//スタートノードのコストを0にする
-			if (saitan_node_row[bupos.y-1][bupos.x].isNoWall)
+			if (bupos.y != 0)
 			{
-				heap.push_heap(saitan_node_row[bupos.y-1][bupos.x]);//スタートノードをキューにプッシュする
+				saitan_node_row[bupos.y - 1][bupos.x].cost = 0;//スタートノードのコストを0にする
+				if (saitan_node_row[bupos.y - 1][bupos.x].isNoWall)
+				{
+					heap.push_heap(saitan_node_row[bupos.y - 1][bupos.x]);//スタートノードをキューにプッシュする
+				}
 			}
 		}
 		bool isRow = false;

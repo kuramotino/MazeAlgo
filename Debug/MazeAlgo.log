@@ -1,2 +1,4 @@
-﻿  IssueCommand.cpp
+﻿  Planning.cpp
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.cpp(687,7): warning C4101: 'pre_x': ローカル変数は 1 度も使われていません。
+C:\Users\小峰龍之介\source\repos\MazeAlgo\Planning.cpp(687,14): warning C4101: 'pre_y': ローカル変数は 1 度も使われていません。
   MazeAlgo.vcxproj -> C:\Users\小峰龍之介\source\repos\MazeAlgo\Debug\MazeAlgo.exe
